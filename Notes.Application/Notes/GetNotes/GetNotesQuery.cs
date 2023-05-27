@@ -9,5 +9,5 @@ using System.Threading.Tasks;
 
 namespace Notes.Application.Notes.GetProducts
 {
-    public record GetProductsQuery : IRequest<List<NoteDto>>;
+    public record GetNotesQuery : IRequest<List<NoteDto>>;
 }

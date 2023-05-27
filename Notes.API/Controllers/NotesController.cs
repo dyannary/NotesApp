@@ -24,7 +24,7 @@ namespace Notes.API.Controllers
         [HttpGet]
         public async Task<List<NoteDto>> GetProducts()
         {
-            return await _mediator.Send(new GetProductsQuery());
+            return await _mediator.Send(new GetNotesQuery());
         }
 
         [HttpPost]

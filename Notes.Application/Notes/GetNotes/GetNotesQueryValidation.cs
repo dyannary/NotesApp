@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Notes.Application.Notes.GetProducts
 {
-    internal class GetProductsQueryValidation
+    internal class GetNotesQueryValidation
     {
     }
 }

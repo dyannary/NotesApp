@@ -12,18 +12,18 @@ using System.Threading.Tasks.Dataflow;
 
 namespace Notes.Application.Notes.GetProducts
 {
-    internal class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, List<NoteDto>>
+    internal class GetNotesQueryHandler : IRequestHandler<GetNotesQuery, List<NoteDto>>
     {
         private readonly NotesDbContext _notesDbContext;
         private readonly IMapper _mapper;
 
-        public GetProductsQueryHandler(NotesDbContext notesDbContext, IMapper mapper)
+        public GetNotesQueryHandler(NotesDbContext notesDbContext, IMapper mapper)
         {
             _notesDbContext = notesDbContext;
             _mapper = mapper;
         }
 
-        public async Task<List<NoteDto>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
+        public async Task<List<NoteDto>> Handle(GetNotesQuery request, CancellationToken cancellationToken)
         {
             var products = await _notesDbContext.Notes.ToListAsync();
 
