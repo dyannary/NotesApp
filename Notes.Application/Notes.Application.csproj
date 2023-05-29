@@ -14,8 +14,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Notes.Data.Persistence\Notes.Data.Persistence.csproj" />
     <ProjectReference Include="..\Notes.DataTransferObjects\Notes.DataTransferObjects.csproj" />
+    <ProjectReference Include="..\Notes.Persistence\Notes.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Abstractions\" />
+    <Folder Include="Interfaces\Messaging\" />
   </ItemGroup>
 
 </Project>

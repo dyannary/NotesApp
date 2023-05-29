@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Notes.DataTransferObjects.Notes;
 
-namespace Notes.DataTransferObjects.Notes
+public class AddEditNoteDto
 {
-    public class AddEditNoteDto
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-    }
+    public string Title { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
 }

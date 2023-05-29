@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "http": {
+    "Notes.Api": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

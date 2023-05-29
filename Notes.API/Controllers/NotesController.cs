@@ -1,36 +1,31 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Notes.Application.Notes.AddNote;
-using Notes.Application.Notes.GetProducts;
-using Notes.Data.Persistence.Context;
+using Notes.Application.Notes.GetNotes;
 using Notes.DataTransferObjects.Notes;
-using Notes.Persistence.Entities;
 
-namespace Notes.API.Controllers
+namespace Notes.API.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class NotesController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class NotesController : ControllerBase
+    private readonly IMediator _mediator;
+
+    public NotesController(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public NotesController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+    [HttpGet]
+    public async Task<List<NoteDto>> GetProducts()
+    {
+        return await _mediator.Send(new GetNotesQuery());
+    }
 
-        [HttpGet]
-        public async Task<List<NoteDto>> GetProducts()
-        {
-            return await _mediator.Send(new GetNotesQuery());
-        }
-
-        [HttpPost]
-        public async Task<int> CreateNote([FromBody] AddNoteCommand command)
-        {
-            return await _mediator.Send(command);
-        }
+    [HttpPost]
+    public async Task<int> CreateNote([FromBody] AddNoteCommand command)
+    {
+        return await _mediator.Send(command);
     }
 }

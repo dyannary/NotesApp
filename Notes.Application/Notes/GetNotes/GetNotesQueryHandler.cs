@@ -1,33 +1,26 @@
 ﻿using AutoMapper;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Notes.Data.Persistence.Context;
+using Notes.Application.Interfaces.Messaging;
 using Notes.DataTransferObjects.Notes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading.Tasks.Dataflow;
+using Notes.Persistence.Context;
 
-namespace Notes.Application.Notes.GetProducts
+namespace Notes.Application.Notes.GetNotes;
+
+internal class GetNotesQueryHandler : IQueryHandler<GetNotesQuery, List<NoteDto>>
 {
-    internal class GetNotesQueryHandler : IRequestHandler<GetNotesQuery, List<NoteDto>>
+    private readonly NotesDbContext _notesDbContext;
+    private readonly IMapper _mapper;
+
+    public GetNotesQueryHandler(NotesDbContext notesDbContext, IMapper mapper)
     {
-        private readonly NotesDbContext _notesDbContext;
-        private readonly IMapper _mapper;
+        _notesDbContext = notesDbContext;
+        _mapper = mapper;
+    }
 
-        public GetNotesQueryHandler(NotesDbContext notesDbContext, IMapper mapper)
-        {
-            _notesDbContext = notesDbContext;
-            _mapper = mapper;
-        }
+    public async Task<List<NoteDto>> Handle(GetNotesQuery request, CancellationToken cancellationToken)
+    {
+        var products = await _notesDbContext.Notes.ToListAsync();
 
-        public async Task<List<NoteDto>> Handle(GetNotesQuery request, CancellationToken cancellationToken)
-        {
-            var products = await _notesDbContext.Notes.ToListAsync();
-
-            return _mapper.Map<List<NoteDto>>(products);
-        }
+        return _mapper.Map<List<NoteDto>>(products);
     }
 }

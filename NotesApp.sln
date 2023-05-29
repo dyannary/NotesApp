@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notes.API", "Notes.API\Notes.API.csproj", "{33BE0E2B-1805-4217-8EED-5F4CC005781D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes.API", "Notes.API\Notes.API.csproj", "{33BE0E2B-1805-4217-8EED-5F4CC005781D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notes.Application", "Notes.Application\Notes.Application.csproj", "{A21602CB-BFA2-4DD1-B437-786B224D6489}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes.Application", "Notes.Application\Notes.Application.csproj", "{A21602CB-BFA2-4DD1-B437-786B224D6489}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notes.Data.Persistence", "Notes.Data.Persistence\Notes.Data.Persistence.csproj", "{FAEE8F26-3618-4353-A69E-D4F2B674C09E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes.DataTransferObjects", "Notes.DataTransferObjects\Notes.DataTransferObjects.csproj", "{3BFB4683-E69B-42AE-899D-711CF94F195F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notes.DataTransferObjects", "Notes.DataTransferObjects\Notes.DataTransferObjects.csproj", "{3BFB4683-E69B-42AE-899D-711CF94F195F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes.Web", "Notes.Web\Notes.Web.csproj", "{7FF18399-EF58-4594-9F36-09EE8F0268B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notes.Persistence.Entities", "Notes.Persistence.Entities\Notes.Persistence.Entities.csproj", "{A5186C6B-82CF-4492-B846-D5D62653822A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes.Persistence", "Notes.Persistence\Notes.Persistence.csproj", "{ACB248A7-6322-49B2-BDAF-A21E0872B0A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notes.Web", "Notes.Web\Notes.Web.csproj", "{7FF18399-EF58-4594-9F36-09EE8F0268B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notes.Domain", "Notes.Domain\Notes.Domain.csproj", "{30749B7C-B51C-4F1B-977F-C3DB45194D30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,22 +29,22 @@ Global
 		{A21602CB-BFA2-4DD1-B437-786B224D6489}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A21602CB-BFA2-4DD1-B437-786B224D6489}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A21602CB-BFA2-4DD1-B437-786B224D6489}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FAEE8F26-3618-4353-A69E-D4F2B674C09E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAEE8F26-3618-4353-A69E-D4F2B674C09E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAEE8F26-3618-4353-A69E-D4F2B674C09E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FAEE8F26-3618-4353-A69E-D4F2B674C09E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3BFB4683-E69B-42AE-899D-711CF94F195F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3BFB4683-E69B-42AE-899D-711CF94F195F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BFB4683-E69B-42AE-899D-711CF94F195F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BFB4683-E69B-42AE-899D-711CF94F195F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A5186C6B-82CF-4492-B846-D5D62653822A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5186C6B-82CF-4492-B846-D5D62653822A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5186C6B-82CF-4492-B846-D5D62653822A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5186C6B-82CF-4492-B846-D5D62653822A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7FF18399-EF58-4594-9F36-09EE8F0268B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7FF18399-EF58-4594-9F36-09EE8F0268B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FF18399-EF58-4594-9F36-09EE8F0268B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FF18399-EF58-4594-9F36-09EE8F0268B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACB248A7-6322-49B2-BDAF-A21E0872B0A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACB248A7-6322-49B2-BDAF-A21E0872B0A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACB248A7-6322-49B2-BDAF-A21E0872B0A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACB248A7-6322-49B2-BDAF-A21E0872B0A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30749B7C-B51C-4F1B-977F-C3DB45194D30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30749B7C-B51C-4F1B-977F-C3DB45194D30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30749B7C-B51C-4F1B-977F-C3DB45194D30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30749B7C-B51C-4F1B-977F-C3DB45194D30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
