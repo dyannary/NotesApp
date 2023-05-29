@@ -1,34 +1,27 @@
 ﻿using AutoMapper;
-using MediatR;
-using Notes.Data.Persistence.Context;
-using Notes.Persistence.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Notes.Application.Interfaces.Messaging;
+using Notes.Domain;
+using Notes.Persistence.Context;
 
-namespace Notes.Application.Notes.AddNote
+namespace Notes.Application.Notes.AddNote;
+
+public class AddNoteCommandHandler : ICommandHandler<AddNoteCommand, int>
 {
-    public class AddNoteCommandHandler : IRequestHandler<AddNoteCommand, int>
+    private readonly NotesDbContext _notesDbContext;
+    private readonly IMapper _mapper;
+
+    public AddNoteCommandHandler(NotesDbContext notesDbContext, IMapper mapper)
     {
-        private readonly NotesDbContext _notesDbContext;
-        private readonly IMapper _mapper;
+        _notesDbContext = notesDbContext;
+        _mapper = mapper;
+    }
+    public async Task<int> Handle(AddNoteCommand request, CancellationToken cancellationToken)
+    {
+        var noteToCreate = _mapper.Map<Note>(request.Data);
 
-        public AddNoteCommandHandler(NotesDbContext notesDbContext, IMapper mapper)
-        {
-            _notesDbContext = notesDbContext;
-            _mapper = mapper;   
-        }
-        public async Task<int> Handle(AddNoteCommand request, CancellationToken cancellationToken)
-        {
-            var noteToCreate = _mapper.Map<Note>(request.Data);
+        await _notesDbContext.Notes.AddAsync(noteToCreate);
+        await _notesDbContext.SaveChangesAsync();
 
-            await _notesDbContext.Notes.AddAsync(noteToCreate);
-            await _notesDbContext.SaveChangesAsync();
-
-            return noteToCreate.Id;
-
-        }
+        return noteToCreate.Id;
     }
 }

@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Notes.Data.Persistence.Context;
+using Notes.Persistence.Context;
 
 #nullable disable
 
-namespace Notes.Data.Persistence.Migrations
+namespace Notes.Persistence.Migrations
 {
     [DbContext(typeof(NotesDbContext))]
-    [Migration("20230525160608_Initial Migration")]
-    partial class InitialMigration
+    [Migration("20230529164809_Initial migration")]
+    partial class Initialmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Notes.Data.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Notes.Persistence.Entities.Note", b =>
+            modelBuilder.Entity("Notes.Domain.Note", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

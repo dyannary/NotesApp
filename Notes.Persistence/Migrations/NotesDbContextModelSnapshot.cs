@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Notes.Data.Persistence.Context;
+using Notes.Persistence.Context;
 
 #nullable disable
 
-namespace Notes.Data.Persistence.Migrations
+namespace Notes.Persistence.Migrations
 {
     [DbContext(typeof(NotesDbContext))]
     partial class NotesDbContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace Notes.Data.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Notes.Persistence.Entities.Note", b =>
+            modelBuilder.Entity("Notes.Domain.Note", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
