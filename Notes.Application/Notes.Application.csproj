@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Notes.DataTransferObjects\Notes.DataTransferObjects.csproj" />
+    <ProjectReference Include="..\Notes.Domain\Notes.Domain.csproj" />
     <ProjectReference Include="..\Notes.Persistence\Notes.Persistence.csproj" />
   </ItemGroup>
 

@@ -15,6 +15,15 @@ public static class DependencyInjection
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
         });
 
+        //add scoped life time for all classes and interfaces from Infrastructure module
+        services.Scan(
+            selector => selector
+                .FromAssemblies(Persistence.AssemblyReference.Assembly)
+                .AddClasses(false)
+                .AsImplementedInterfaces()
+                .WithScopedLifetime()
+        );
+
         return services;
     }
 
