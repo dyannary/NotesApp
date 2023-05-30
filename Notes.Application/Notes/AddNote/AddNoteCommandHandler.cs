@@ -19,8 +19,8 @@ public class AddNoteCommandHandler : ICommandHandler<AddNoteCommand, int>
     {
         var noteToCreate = _mapper.Map<Note>(request.Data);
 
-        await _notesDbContext.Notes.AddAsync(noteToCreate);
-        await _notesDbContext.SaveChangesAsync();
+        await _notesDbContext.Notes.AddAsync(noteToCreate, cancellationToken);
+        await _notesDbContext.SaveChangesAsync(cancellationToken);
 
         return noteToCreate.Id;
     }
