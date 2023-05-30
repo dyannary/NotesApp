@@ -1,6 +1,4 @@
-﻿using Notes.DataTransferObjects.Enums;
-
-namespace Notes.Domain;
+﻿namespace Notes.Domain;
 
 public class Note : Entity
 {

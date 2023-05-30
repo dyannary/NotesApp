@@ -6,7 +6,7 @@ using Notes.Persistence.Context;
 
 namespace Notes.Application.Notes.GetNotes;
 
-internal class GetNotesQueryHandler : IQueryHandler<GetNotesQuery, List<NoteDto>>
+public class GetNotesQueryHandler : IQueryHandler<GetEventsQuery, List<NoteDto>>
 {
     private readonly NotesDbContext _notesDbContext;
     private readonly IMapper _mapper;
@@ -17,10 +17,10 @@ internal class GetNotesQueryHandler : IQueryHandler<GetNotesQuery, List<NoteDto>
         _mapper = mapper;
     }
 
-    public async Task<List<NoteDto>> Handle(GetNotesQuery request, CancellationToken cancellationToken)
+    public async Task<List<NoteDto>> Handle(GetEventsQuery request, CancellationToken cancellationToken)
     {
-        var products = await _notesDbContext.Notes.ToListAsync(cancellationToken: cancellationToken);
+        var notes = await _notesDbContext.Notes.ToListAsync(cancellationToken: cancellationToken);
 
-        return _mapper.Map<List<NoteDto>>(products);
+        return _mapper.Map<List<NoteDto>>(notes);
     }
 }

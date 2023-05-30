@@ -13,7 +13,6 @@ public class NoteMappingProfile : Profile
             .ForMember(x => x.Content, opts => opts.MapFrom(op => op.Content));
 
         CreateMap<Note, NoteDto>()
-            .ForMember(x => x.Id, opts => opts.MapFrom(op => op.Id))
             .ForMember(x => x.Title, opts => opts.MapFrom(op => op.Title))
             .ForMember(x => x.Content, opts => opts.MapFrom(op => op.Content));
     }
