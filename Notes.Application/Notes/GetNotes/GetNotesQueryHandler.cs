@@ -19,7 +19,7 @@ internal class GetNotesQueryHandler : IQueryHandler<GetNotesQuery, List<NoteDto>
 
     public async Task<List<NoteDto>> Handle(GetNotesQuery request, CancellationToken cancellationToken)
     {
-        var products = await _notesDbContext.Notes.ToListAsync();
+        var products = await _notesDbContext.Notes.ToListAsync(cancellationToken: cancellationToken);
 
         return _mapper.Map<List<NoteDto>>(products);
     }
