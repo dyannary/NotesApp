@@ -1,14 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Notes.Application.Notes.DeleteNote;
-using Notes.Application.Notes.EditNote;
-using Notes.Application.Notes.GetNote;
 using Notes.Application.Tasks.AddTask;
 using Notes.Application.Tasks.DeleteTask;
 using Notes.Application.Tasks.EditTask;
 using Notes.Application.Tasks.GetTask;
 using Notes.Application.Tasks.GetTasks;
-using Notes.DataTransferObjects.Notes;
 using Notes.DataTransferObjects.Tasks;
 
 namespace Notes.API.Controllers;

@@ -30,7 +30,7 @@ public class NotesController : ControllerBase
     [HttpGet]
     public async Task<List<NoteDto>> GetNotes()
     {
-        return await _mediator.Send(new GetEventsQuery());
+        return await _mediator.Send(new GetNotesQuery());
     }
 
     [HttpPost]

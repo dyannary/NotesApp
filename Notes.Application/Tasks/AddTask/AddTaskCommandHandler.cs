@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using Notes.Application.FactoryMethod;
 using Notes.Application.Interfaces.Messaging;
 using Notes.Persistence.Context;
 
@@ -7,16 +7,16 @@ namespace Notes.Application.Tasks.AddTask;
 public class AddTaskCommandHandler : ICommandHandler<AddTaskCommand, int>
 {
     private readonly NotesDbContext _notesDbContext;
-    private readonly IMapper _mapper;
 
-    public AddTaskCommandHandler(NotesDbContext notesDbContext, IMapper mapper)
+    public AddTaskCommandHandler(NotesDbContext notesDbContext)
     {
         _notesDbContext = notesDbContext;
-        _mapper = mapper;
     }
     public async Task<int> Handle(AddTaskCommand request, CancellationToken cancellationToken)
     {
-        var taskToCreate = _mapper.Map<Domain.Task>(request.Data);
+        INoteFactory taskFactory = new FactoryMethod.TaskFactory(request.Data);
+
+        var taskToCreate = (Domain.Task)taskFactory.Create();
 
         await _notesDbContext.Tasks.AddAsync(taskToCreate, cancellationToken);
         await _notesDbContext.SaveChangesAsync(cancellationToken);

@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes.Persistence", "Notes.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes.Domain", "Notes.Domain\Notes.Domain.csproj", "{30749B7C-B51C-4F1B-977F-C3DB45194D30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notes.Blazor", "Notes.Blazor\Notes.Blazor.csproj", "{3EAE89C1-3792-4B93-8928-226D5C5C551C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes.Blazor", "Notes.Blazor\Notes.Blazor.csproj", "{3EAE89C1-3792-4B93-8928-226D5C5C551C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

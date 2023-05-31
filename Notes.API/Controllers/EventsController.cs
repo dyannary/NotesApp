@@ -1,14 +1,11 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Notes.Application.Events.AddEvent;
 using Notes.Application.Events.DeleteEvent;
 using Notes.Application.Events.EditEvent;
 using Notes.Application.Events.GetEvent;
 using Notes.Application.Events.GetEvents;
-using Notes.Application.Notes.EditNote;
 using Notes.DataTransferObjects.Events;
-using Notes.DataTransferObjects.Notes;
 
 namespace Notes.API.Controllers
 {
