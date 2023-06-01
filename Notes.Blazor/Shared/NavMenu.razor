@@ -1,11 +1,11 @@
 ﻿<MudNavMenu Style="height: 100vh">
-    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Create">
+    <MudNavLink Href="notes" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Create">
         Notes
     </MudNavLink>
-    <MudNavLink Href="counter" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Checklist">
+    <MudNavLink Href="tasks" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Checklist">
         Tasks
     </MudNavLink>
-    <MudNavLink Href="fetchdata" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.EventNote">
+    <MudNavLink Href="events" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.EventNote">
         Events
     </MudNavLink>
 
@@ -26,11 +26,13 @@
         <div class="d-flex justify-center">
             <MudFab Class="mud-theme-primary"
                     StartIcon="@Icons.Material.Filled.Check"
+                    Size="Size.Small"
                     OnClick="addCategory">
             </MudFab>
             <MudFab Class="ml-5"
                     Color="Color.Secondary"
                     StartIcon="@Icons.Material.Filled.Close"
+                    Size="Size.Small"
                     OnClick="() => {_startAddCategory = false;}">
             </MudFab>
         </div>
@@ -43,6 +45,7 @@
             <MudFab Class="align-self-end mt-2 mud-theme-primary"
                     StartIcon="@Icons.Material.Filled.Add"
                     Label="Add category"
+                    Size="Size.Medium"
                     OnClick="() => {_startAddCategory = true;}">
             </MudFab>
         </div>
