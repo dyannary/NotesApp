@@ -17,10 +17,10 @@ public class EditNoteCommandHandler : IRequestHandler<EditNoteCommand, int>
     }
     public async Task<int> Handle(EditNoteCommand request, CancellationToken cancellationToken)
     {
-        var planToEdit = await _notesDbContext.Notes.FirstOrDefaultAsync(x => x.Id == request.Data.Id);
+        var planToEdit = await _notesDbContext.Notes.FirstOrDefaultAsync(x => x.Id == request.Data.Id, cancellationToken: cancellationToken);
 
         _mapper.Map(request.Data, planToEdit);
-        await _notesDbContext.SaveChangesAsync();
+        await _notesDbContext.SaveChangesAsync(cancellationToken);
        
         return planToEdit.Id;
     }

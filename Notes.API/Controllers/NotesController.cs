@@ -21,16 +21,30 @@ public class NotesController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<NoteDto> GetNote(int id)
+    public async Task<ActionResult<NoteDto>> GetNote(int id)
     {
         var query = new GetNoteQuery { Id = id };
-        return await _mediator.Send(query);
+        var note = await _mediator.Send(query);
+
+        if (note is null)
+        {
+            return BadRequest($"Note with id: {id} not found");
+        }
+
+        return Ok(note);
     }
 
     [HttpGet]
-    public async Task<List<NoteDto>> GetNotes()
+    public async Task<ActionResult<IEnumerable<NoteDto>>> GetNotes()
     {
-        return await _mediator.Send(new GetNotesQuery());
+        var notes = await _mediator.Send(new GetNotesQuery());
+
+        if (!notes.Any())
+        {
+            return NotFound();
+        }
+
+        return Ok(notes);
     }
 
     [HttpPost]
