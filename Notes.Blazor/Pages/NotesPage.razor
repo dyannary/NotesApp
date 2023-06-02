@@ -1,0 +1,48 @@
+﻿@page "/notes"
+
+<PageTitle>Notes</PageTitle>
+
+<div class="d-flex justify-center mb-8">
+    <MudFab Class="align-self-end mud-theme-primary"
+            StartIcon="@Icons.Material.Filled.Add"
+            Size="Size.Medium"
+            Label="Add note"
+            OnClick="NewNote">
+    </MudFab>
+</div>
+
+@if (Notes is null)
+{
+    <MudAlert Severity="Severity.Info"
+        ContentAlignment="HorizontalAlignment.Center">
+        No notes!
+    </MudAlert>
+}
+else
+{
+    <MudGrid>
+        @foreach (var note in Notes)
+        {
+            <MudItem xs="12">
+                <MudCard>
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <MudText Typo="Typo.h6">
+                                @note.Title
+                            </MudText>
+                        </CardHeaderContent>
+                        <CardHeaderActions>
+                            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Default" />
+                        </CardHeaderActions>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudText>@note.Content</MudText>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+        }
+    </MudGrid>
+}
+
+
+

@@ -3,4 +3,4 @@ using Notes.DataTransferObjects.Notes;
 
 namespace Notes.Application.Notes.GetNotes;
 
-public record GetNotesQuery : IQuery<List<NoteDto>>;
+public record GetNotesQuery : IQuery<IEnumerable<NoteDto>>;

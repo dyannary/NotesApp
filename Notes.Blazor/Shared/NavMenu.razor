@@ -1,0 +1,67 @@
+﻿<MudNavMenu Style="height: 100vh">
+    <MudNavLink Href="notes" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Create">
+        Notes
+    </MudNavLink>
+    <MudNavLink Href="tasks" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Checklist">
+        Tasks
+    </MudNavLink>
+    <MudNavLink Href="events" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.EventNote">
+        Events
+    </MudNavLink>
+
+    <MudDivider Class="my-5"/>
+    
+    @if (_startAddCategory)
+    {
+        <div class="px-5">
+            <MudTextField 
+                @bind-Value="_newCategoryName"
+                Class="mb-4"
+                Label="Category Name"
+                Variant="Variant.Text"
+                Margin="Margin.Normal">
+            </MudTextField>
+        </div>
+
+        <div class="d-flex justify-center">
+            <MudFab Class="mud-theme-primary"
+                    StartIcon="@Icons.Material.Filled.Check"
+                    Size="Size.Small"
+                    OnClick="addCategory">
+            </MudFab>
+            <MudFab Class="ml-5"
+                    Color="Color.Secondary"
+                    StartIcon="@Icons.Material.Filled.Close"
+                    Size="Size.Small"
+                    OnClick="() => {_startAddCategory = false;}">
+            </MudFab>
+        </div>
+
+    }
+
+    @if (!_startAddCategory)
+    {
+        <div class="d-flex justify-center">
+            <MudFab Class="align-self-end mt-2 mud-theme-primary"
+                    StartIcon="@Icons.Material.Filled.Add"
+                    Label="Add category"
+                    Size="Size.Medium"
+                    OnClick="() => {_startAddCategory = true;}">
+            </MudFab>
+        </div>
+    }
+
+
+
+</MudNavMenu>
+
+@code
+{
+    bool _startAddCategory = false;
+    string _newCategoryName = string.Empty;
+
+    private void addCategory()
+    {
+
+    }
+}

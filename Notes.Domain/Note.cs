@@ -2,7 +2,6 @@
 
 public class Note : Entity
 {
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public DateTime CreatedDate { get; set; }
+    public string Title { get; set; } = string.Empty;
+    public string Content { get; set; } = string.Empty;
 }
