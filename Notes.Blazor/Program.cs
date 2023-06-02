@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
 using Notes.Blazor;
+using Notes.Blazor.Services.Implementations;
+using Notes.Blazor.Services.Interfaces;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -15,5 +17,7 @@ builder.Services.AddScoped(sp => new HttpClient
     BaseAddress = utmShopApiUri
 });
 builder.Services.AddMudServices();
+
+builder.Services.AddScoped<INoteService, NoteService>();
 
 await builder.Build().RunAsync();

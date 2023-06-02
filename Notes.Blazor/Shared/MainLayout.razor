@@ -13,6 +13,22 @@
             OnClick="@((e) => DrawerToggle())" 
         />
         <MudSpacer />
+        
+        <MudIconButton 
+            Icon="@Icons.Custom.Brands.GitHub" 
+            Color="Color.Primary" 
+            aria-label="github"
+            Link="https://github.com/1Leomas" 
+            Target="_blank">
+        </MudIconButton>
+        <MudIconButton 
+            Icon="@Icons.Custom.Brands.GitHub"
+            Color="Color.Secondary"
+            aria-label="github"
+            Link="https://github.com/dyannary" 
+            Target="_blank">
+        </MudIconButton>
+
         <MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_theme"/>
         <MudSwitch @bind-Checked="@_isDarkMode" Color="Color.Primary" Class="ma-4" T="bool" Label="Light/Dark"/>
     </MudAppBar>

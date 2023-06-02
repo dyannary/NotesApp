@@ -1,0 +1,36 @@
+﻿@page "/noteDetails/{Id:int}"
+
+<PageTitle>Notes details</PageTitle>
+
+@if (Note is not null && string.IsNullOrEmpty(ErrorMessage))
+{
+    <div class="centerScreen">
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+    </div>
+}
+else if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <MudAlert Severity="Severity.Error">@ErrorMessage</MudAlert>
+}
+else
+{
+    <MudTextField 
+        DebounceInterval="500" 
+        OnDebounceIntervalElapsed="ChangeNoteTitle" 
+        @bind-Value="@Note.Title"
+        T="string"
+        Variant="Variant.Outlined"
+    />
+
+    <MudTextField 
+        DebounceInterval="500" 
+        OnDebounceIntervalElapsed="ChangeNoteContent"
+    @bind-Value="@Note.Content"
+        Text="@Note.Content"
+        T="string"
+        Lines="10"
+        Variant="Variant.Outlined"
+    />
+
+    
+}

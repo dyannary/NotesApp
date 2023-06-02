@@ -1,21 +1,27 @@
 ﻿@page "/notes"
-@inject HttpClient Http
-@inject NavigationManager NavigationManager
 
 <PageTitle>Notes</PageTitle>
 
 <div class="d-flex justify-center mb-8">
     <MudFab Class="align-self-end mud-theme-primary"
             StartIcon="@Icons.Material.Filled.Add"
+            Size="Size.Medium"
             Label="Add note"
             OnClick="NewNote">
     </MudFab>
 </div>
 
-<MudGrid>
-    @if (_notesList is not null)
-    {
-        foreach (var note in _notesList)
+@if (Notes is null)
+{
+    <MudAlert Severity="Severity.Info"
+        ContentAlignment="HorizontalAlignment.Center">
+        No notes!
+    </MudAlert>
+}
+else
+{
+    <MudGrid>
+        @foreach (var note in Notes)
         {
             <MudItem xs="12">
                 <MudCard>
@@ -35,9 +41,8 @@
                 </MudCard>
             </MudItem>
         }
-    }
-    else
-    {
-        <MudAlert Severity="Severity.Normal">No notes!</MudAlert>
-    }
-</MudGrid>
+    </MudGrid>
+}
+
+
+
