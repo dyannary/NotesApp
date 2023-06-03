@@ -48,21 +48,50 @@ public class NotesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<int> CreateNote([FromBody] AddNoteCommand command)
+    public async Task<ActionResult> CreateNote([FromBody] AddNoteCommand command)
     {
-        return await _mediator.Send(command);
+        var result =  await _mediator.Send(command);
+
+        return Ok(result);
     }
 
     [HttpPut]
-    public async Task<int> EditNote([FromBody] EditNoteCommand command)
+    public async Task<ActionResult> EditNote([FromBody] EditNoteCommand command)
     {
-        return await _mediator.Send(command);
+        var result = await _mediator.Send(command);
+      
+        if(result == null)
+        {
+            return NotFound($"Employee with this Id is not found");
+        }
+
+        return Ok(result);
+    }
+
+    [HttpPatch]
+    public async Task<ActionResult> UpdateNote([FromBody] EditNoteCommand command)
+    {
+        var result = await _mediator.Send(command);
+
+        if (result == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(result);
     }
 
     [HttpDelete("{id}")]
-    public async Task<Unit> DeleteNote([FromRoute] int id)
+    public async Task<ActionResult> DeleteNote([FromRoute] int id)
     {
         var command = new DeleteNoteCommand { Id = id };
-        return await _mediator.Send(command);
+        var result = await _mediator.Send(command);
+
+        if(result == null)
+        {
+            return NotFound($"Employee with Id = {id} not found");
+        }
+
+        return Ok(result);
     }
 }
