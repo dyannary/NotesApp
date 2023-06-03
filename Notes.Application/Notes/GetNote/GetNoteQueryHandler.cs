@@ -17,9 +17,9 @@ public class GetNoteQueryHandler : IRequestHandler<GetNoteQuery, NoteDto?>
     }
     public async Task<NoteDto?> Handle(GetNoteQuery request, CancellationToken cancellationToken)
     {
-        var plan = await _notesDbContext.Notes
+        var note = await _notesDbContext.Notes
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken: cancellationToken);
 
-        return _mapper.Map<NoteDto>(plan);
+        return _mapper.Map<NoteDto>(note);
     }
 }
