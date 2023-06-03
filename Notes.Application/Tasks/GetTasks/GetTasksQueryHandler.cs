@@ -6,7 +6,7 @@ using Notes.Persistence.Context;
 
 namespace Notes.Application.Tasks.GetTasks;
 
-public class GetTasksQueryHandler : IQueryHandler<GetTasksQuery, List<TaskDto>>
+public class GetTasksQueryHandler : IQueryHandler<GetTasksQuery, IEnumerable<TaskDto>>
 {
     private readonly NotesDbContext _notesDbContext;
     private readonly IMapper _mapper;
@@ -17,7 +17,7 @@ public class GetTasksQueryHandler : IQueryHandler<GetTasksQuery, List<TaskDto>>
         _mapper = mapper;
     }
 
-    public async Task<List<TaskDto>> Handle(GetTasksQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<TaskDto>> Handle(GetTasksQuery request, CancellationToken cancellationToken)
     {
         var tasks = await _notesDbContext.Tasks.ToListAsync(cancellationToken: cancellationToken);
 
