@@ -14,16 +14,18 @@
 @if (Notes is null)
 {
     <MudAlert Severity="Severity.Info"
-        ContentAlignment="HorizontalAlignment.Center">
+          ContentAlignment="HorizontalAlignment.Center">
         No notes!
     </MudAlert>
 }
 else
 {
-    <MudGrid>
+    <MudStack>
         @foreach (var note in Notes)
         {
-            <MudItem xs="12">
+            <MudPaper @onclick="() => { NoteDetails(note.Id);}"
+              Elevation="4"
+                      style=" background-color: hsla(0, 0%, 98%, 0.2)">
                 <MudCard>
                     <MudCardHeader>
                         <CardHeaderContent>
@@ -31,9 +33,26 @@ else
                                 @note.Title
                             </MudText>
                         </CardHeaderContent>
-                        <CardHeaderActions>
-                            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Default" />
-                        </CardHeaderActions>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudText>@note.Content</MudText>
+                    </MudCardContent>
+                </MudCard>
+            </MudPaper>
+        }
+
+    </MudStack>
+    @*<MudGrid>
+        @foreach (var note in Notes)
+        {
+            <MudItem xs="12" @onclick="() => { NoteDetails(note.Id);}">
+                <MudCard>
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <MudText Typo="Typo.h6">
+                                @note.Title
+                            </MudText>
+                        </CardHeaderContent>
                     </MudCardHeader>
                     <MudCardContent>
                         <MudText>@note.Content</MudText>
@@ -41,8 +60,5 @@ else
                 </MudCard>
             </MudItem>
         }
-    </MudGrid>
+    </MudGrid>*@
 }
-
-
-

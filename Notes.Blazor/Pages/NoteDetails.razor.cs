@@ -8,8 +8,11 @@ public partial class NoteDetails
 {
     [Parameter]
     public int Id { get; set; }
-    [Inject] 
+    [Inject]
     public INoteService NoteService { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
 
     public NoteDto? Note { get; set; }
     public string ErrorMessage { get; set; } = string.Empty;
@@ -26,13 +29,18 @@ public partial class NoteDetails
         }
     }
 
-    public async Task ChangeNoteTitle() 
+    public async Task ChangeNoteTitle()
     {
 
-    }   
+    }
 
-    public async Task ChangeNoteContent() 
+    public async Task ChangeNoteContent()
     {
 
+    }
+
+    private void GoToNotePage()
+    {
+        NavigationManager.NavigateTo("notes");
     }
 }

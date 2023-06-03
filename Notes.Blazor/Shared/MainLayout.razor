@@ -1,36 +1,39 @@
 ﻿@inherits LayoutComponentBase
 
+<head>
+    <title>Notes App</title>
+
+    <link rel="stylesheet" href="~/@(nameof(App)).styles.css" />
+</head>
+
+
 <MudThemeProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
     <MudAppBar Elevation="0">
-        <MudIconButton 
-            Icon="@Icons.Material.Filled.Menu" 
-            Color="Color.Inherit" 
-            Edge="Edge.Start" 
-            OnClick="@((e) => DrawerToggle())" 
-        />
+        <MudIconButton Icon="@Icons.Material.Filled.Menu"
+                       Color="Color.Inherit"
+                       Edge="Edge.Start"
+                       OnClick="@((e) => DrawerToggle())" />
         <MudSpacer />
-        
-        <MudIconButton 
-            Icon="@Icons.Custom.Brands.GitHub" 
-            Color="Color.Primary" 
-            aria-label="github"
-            Link="https://github.com/1Leomas" 
-            Target="_blank">
+
+        <MudIconButton Icon="@Icons.Custom.Brands.GitHub"
+                       Color="Color.Primary"
+                       aria-label="github"
+                       Link="https://github.com/1Leomas"
+                       Target="_blank">
         </MudIconButton>
-        <MudIconButton 
-            Icon="@Icons.Custom.Brands.GitHub"
-            Color="Color.Secondary"
-            aria-label="github"
-            Link="https://github.com/dyannary" 
-            Target="_blank">
+        <MudIconButton Icon="@Icons.Custom.Brands.GitHub"
+                       Color="Color.Secondary"
+                       aria-label="github"
+                       Link="https://github.com/dyannary"
+                       Target="_blank">
         </MudIconButton>
 
-        <MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_theme"/>
-        <MudSwitch @bind-Checked="@_isDarkMode" Color="Color.Primary" Class="ma-4" T="bool" Label="Light/Dark"/>
+        <MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_theme" />
+        <MudSwitch @bind-Checked="@_isDarkMode" Color="Color.Primary" Class="ma-4" T="bool" Label="Light/Dark" />
     </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
         <MudDrawerHeader>
