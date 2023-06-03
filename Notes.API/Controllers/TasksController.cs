@@ -21,22 +21,30 @@ public class TasksController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<TaskDto> GetTask(int id)
+    public async Task<ActionResult<TaskDto?>> GetTask(int id)
     {
         var query = new GetTaskQuery { Id = id };
-        return await _mediator.Send(query);
+        var task = await _mediator.Send(query);
+
+        if(task is null)
+        {
+            return BadRequest($"Note with id: {id} not found");
+        }
+
+        return Ok(task);
     }
 
     [HttpGet]
-    public async Task<List<TaskDto>> GetTasks()
+    public async Task<ActionResult<IEnumerable<TaskDto?>>> GetTasks()
     {
-        return await _mediator.Send(new GetTasksQuery());
-    }
+        var tasks = await _mediator.Send(new GetTasksQuery());
 
-    [HttpPut]
-    public async Task<int> EditTask([FromBody] EditTaskCommand command)
-    {
-        return await _mediator.Send(command);
+        if (!tasks.Any())
+        {
+            return NotFound();
+        }
+
+        return Ok(tasks);
     }
 
     [HttpPost]
@@ -45,10 +53,43 @@ public class TasksController : ControllerBase
         return await _mediator.Send(command);
     }
 
+    [HttpPut]
+    public async Task<ActionResult> EditTask([FromBody] EditTaskCommand command)
+    {
+        var result = await _mediator.Send(command);
+
+        if (result is null)
+        {
+            return NotFound($"Employee with this Id is not found");
+        }
+
+        return Ok(result);
+    }
+
+    [HttpPatch]
+    public async Task<ActionResult> UpdateTask([FromBody] EditTaskCommand command)
+    {
+        var result = await _mediator.Send(command);
+
+        if (result is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(result);
+    }
+
     [HttpDelete("{id}")]
-    public async Task<Unit> DeleteTask([FromRoute] int id)
+    public async Task<ActionResult> DeleteTask([FromRoute] int id)
     {
         var command = new DeleteTaskCommand { Id = id };
-        return await _mediator.Send(command);
+        var result = await _mediator.Send(command);
+
+        if (result is null)
+        {
+            return NotFound($"Employee with Id = {id} not found");
+        }
+
+        return Ok(result);
     }
 }
