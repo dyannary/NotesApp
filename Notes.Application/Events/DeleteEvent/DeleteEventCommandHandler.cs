@@ -4,7 +4,7 @@ using Notes.Persistence.Context;
 
 namespace Notes.Application.Events.DeleteEvent;
 
-public class DeleteEventCommandHandler : IRequestHandler<DeleteEventCommand, Unit>
+public class DeleteEventCommandHandler : IRequestHandler<DeleteEventCommand, Unit?>
 {
     private readonly NotesDbContext _notesDbContext;
 
@@ -13,9 +13,14 @@ public class DeleteEventCommandHandler : IRequestHandler<DeleteEventCommand, Uni
         _notesDbContext = notesDbContext;
     }
 
-    public async Task<Unit> Handle(DeleteEventCommand request, CancellationToken cancellationToken)
+    public async Task<Unit?> Handle(DeleteEventCommand request, CancellationToken cancellationToken)
     {
         var eventToDelete = await _notesDbContext.Events.FirstOrDefaultAsync(x => x.Id == request.Id);
+
+        if(eventToDelete is null)
+        {
+            return null;
+        }
 
         _notesDbContext.Events.Remove(eventToDelete);
 

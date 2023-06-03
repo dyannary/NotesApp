@@ -21,16 +21,30 @@ namespace Notes.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<EventDto> GetEvent([FromRoute] int id)
+        public async Task<ActionResult<EventDto>> GetEvent([FromRoute] int id)
         {
             var query = new GetEventQuery { Id = id };
-            return await _mediator.Send(query);
+            var result = await _mediator.Send(query);
+
+            if(result is null)
+            {
+                return NotFound($"Event with Id {id} is not found!");
+            }
+
+            return Ok(result);
         }
 
         [HttpGet]
-        public async Task<List<EventDto>> GetEvents()
+        public async Task<ActionResult<IEnumerable<EventDto>>> GetEvents()
         {
-            return await _mediator.Send(new GetEventsQuery());
+            var result = await _mediator.Send(new GetEventsQuery());
+
+            if(!result.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
 
         [HttpPost]
@@ -40,16 +54,43 @@ namespace Notes.API.Controllers
         }
 
         [HttpPut]
-        public async Task<int> EditEvent([FromBody] EditEventCommand command)
+        public async Task<ActionResult> EditEvent([FromBody] EditEventCommand command)
         {
-            return await _mediator.Send(command);
+            var result = await _mediator.Send(command);
+
+            if( result is null )
+            {
+                return NotFound($"Event with this Id is not found!");
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPatch]
+        public async Task<ActionResult> UpdateEvent([FromBody] EditEventCommand command)
+        {
+            var result = await _mediator.Send(command);
+
+            if (result is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public async Task<Unit> DeleteEvent([FromRoute] int id)
+        public async Task<ActionResult> DeleteEvent([FromRoute] int id)
         {
             var command = new DeleteEventCommand { Id = id };
-            return await _mediator.Send(command);
+            var result = await _mediator.Send(command);
+
+            if (result is null)
+            {
+                return NotFound($"Employee with Id = {id} not found");
+            }
+
+            return Ok(result);
         }
     }
 }
