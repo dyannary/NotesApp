@@ -6,7 +6,7 @@ using Notes.Persistence.Context;
 
 namespace Notes.Application.Events.GetEvents;
 
-public class GetEventsQueryHandler : IQueryHandler<GetEventsQuery, List<EventDto>>
+public class GetEventsQueryHandler : IQueryHandler<GetEventsQuery, IEnumerable<EventDto>>
 {
     private readonly NotesDbContext _notesDbContext;
     private readonly IMapper _mapper;
@@ -17,7 +17,7 @@ public class GetEventsQueryHandler : IQueryHandler<GetEventsQuery, List<EventDto
         _mapper = mapper;
     }
 
-    public async Task<List<EventDto>> Handle(GetEventsQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<EventDto>> Handle(GetEventsQuery request, CancellationToken cancellationToken)
     {
         var tasks = await _notesDbContext.Events.ToListAsync(cancellationToken: cancellationToken);
 
