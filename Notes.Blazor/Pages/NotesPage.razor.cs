@@ -6,16 +6,16 @@ namespace Notes.Blazor.Pages;
 
 public partial class NotesPage
 {
-    [Inject] 
+    [Inject]
     public INoteService NoteService { get; set; }
-    
+
 
     [Inject]
     public NavigationManager NavigationManager { get; set; }
 
     public IEnumerable<NoteDto>? Notes;
     public string ErrorMessage { get; set; } = string.Empty;
-        
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -31,5 +31,10 @@ public partial class NotesPage
     private void NewNote()
     {
         NavigationManager.NavigateTo("newNote");
+    }
+
+    private void NoteDetails(int id)
+    {
+        NavigationManager.NavigateTo($"noteDetails/{id}");
     }
 }
