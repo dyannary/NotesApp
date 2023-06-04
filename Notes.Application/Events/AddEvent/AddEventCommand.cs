@@ -10,5 +10,5 @@ public class AddEventCommand : ICommand<int>
         Data = data;
     }
 
-    public AddEditEventDto Data { get; set; }
+    public AddEditEventDto Data { get; private set; }
 }
