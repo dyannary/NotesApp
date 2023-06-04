@@ -67,4 +67,25 @@ public class NoteService : INoteService
             throw;
         }
     }
+
+    public async Task<int> AddNoteAsync(AddEditNoteDto noteToAdd)
+    {
+        try
+        {
+            var response = await _http.PostAsJsonAsync("/api/Notes", noteToAdd);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<int>();
+            }
+
+            var message = await response.Content.ReadAsStringAsync();
+            throw new Exception(message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 }

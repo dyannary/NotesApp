@@ -2,8 +2,8 @@
 using Notes.Blazor.Services.Interfaces;
 using Notes.DataTransferObjects.Notes;
 
-namespace Notes.Blazor.Pages;
-
+namespace Notes.Blazor.Pages.NotePages;
+    
 public partial class NoteDetails
 {
     [Parameter]

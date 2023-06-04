@@ -48,8 +48,10 @@ public class NotesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> CreateNote([FromBody] AddNoteCommand command)
+    public async Task<ActionResult> CreateNote([FromBody] AddEditNoteDto noteToAdd)
     {
+        var command = new AddNoteCommand(noteToAdd);
+
         var result =  await _mediator.Send(command);
 
         return Ok(result);
