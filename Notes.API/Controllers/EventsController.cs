@@ -48,9 +48,11 @@ namespace Notes.API.Controllers
         }
 
         [HttpPost]
-        public async Task<int> CreateEvent([FromBody] AddEventCommand command)
+        public async Task<ActionResult> CreateEvent([FromBody] AddEditEventDto eventToAdd)
         {
-            return await _mediator.Send(command);
+            var result = await _mediator.Send(new AddEventCommand(eventToAdd));
+
+            return Ok(result);
         }
 
         [HttpPut]

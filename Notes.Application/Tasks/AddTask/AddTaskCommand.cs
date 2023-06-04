@@ -9,5 +9,5 @@ public class AddTaskCommand : ICommand<int>
     {
         Data = data;
     }
-    public AddEditTaskDto Data { get; set; }
+    public AddEditTaskDto Data { get; private set; }
 }
