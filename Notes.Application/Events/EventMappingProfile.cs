@@ -12,12 +12,18 @@ public class EventMappingProfile : Profile
             .ForMember(x => x.Id, opts => opts.MapFrom(op => op.Id))
             .ForMember(x => x.Name, opts => opts.MapFrom(op => op.Name))
             .ForMember(x => x.Description, opts => opts.MapFrom(op => op.Description))
-            .ForMember(x => x.Date, opts => opts.MapFrom(op => op.Date));
+            .ForMember(x => x.StartDate, opts => opts.MapFrom(op => op.StartDate))
+            .ForMember(x => x.EndDate, opts => opts.MapFrom(op => op.EndDate))
+            .ForMember(x => x.CreatedDate, opts => opts.MapFrom(op => op.CreatedDate))
+            .ForMember(x => x.AllDay, opts => opts.MapFrom(op => op.AllDay));
 
         CreateMap<Event, EventDto>()
             .ForMember(x => x.Id, opts => opts.MapFrom(op => op.Id))
             .ForMember(x => x.Name, opts => opts.MapFrom(op => op.Name))
             .ForMember(x => x.Description, opts => opts.MapFrom(op => op.Description))
-            .ForMember(x => x.Date, opts => opts.MapFrom(op => op.Date));
+            .ForMember(x => x.StartDate, opts => opts.MapFrom(op => op.StartDate))
+            .ForMember(x => x.EndDate, opts => opts.MapFrom(op => op.EndDate))
+            .ForMember(x => x.CreatedDate, opts => opts.MapFrom(op => op.CreatedDate))
+            .ForMember(x => x.AllDay, opts => opts.MapFrom(op => op.AllDay));
     }
 }

@@ -9,4 +9,6 @@ public class AddEditTaskDto
     public string Content { get; set; } = string.Empty;
     public Priority Priority { get; set; }
     public DateTime Deadline { get; set; }
+    public DateTime CreatedDate { get; set; }
+    public bool IsCompleted { get; set; }
 }

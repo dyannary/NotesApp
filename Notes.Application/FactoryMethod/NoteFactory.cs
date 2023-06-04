@@ -17,7 +17,8 @@ internal class NoteFactory: INoteFactory
         Entity note = new Note
         {
             Title = _noteToCreate.Title,
-            Content = _noteToCreate.Content
+            Content = _noteToCreate.Content,
+            CreatedDate = _noteToCreate.CreatedDate,
         };
 
         return note;
