@@ -6,4 +6,6 @@ public interface INoteService
 {
     Task<IEnumerable<NoteDto>> GetNotesAsync();
     Task<NoteDto> GetNoteByIdAsync(int id);
+
+    Task<int> AddNoteAsync(AddEditNoteDto note);
 }
