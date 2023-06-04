@@ -1,0 +1,53 @@
+﻿@page "/newNote"
+
+@using MudBlazor.Utilities
+
+<PageTitle>New note</PageTitle>
+
+<h3>Note title:</h3>
+<MudTextField 
+    @bind-Value="@NoteTitle"
+    T="string" 
+    Variant="Variant.Outlined"
+    Style="@($"border-color:{_pickerColor.ToString(MudColorOutputFormats.RGBA)}, border-style: solid;")"
+/>
+
+<MudCheckBox Class="mt-2" @bind-Checked="@AddSpecialColor" Color="Color.Primary" Style="border-c">
+    Add background color
+</MudCheckBox>
+
+@if (AddSpecialColor)
+{
+    <MudColorPicker 
+        Label="Palette" 
+        ColorPickerView="ColorPickerView.Palette" 
+        PickerVariant="PickerVariant.Dialog" 
+        Value="_pickerColor"
+        ValueChanged="UpdateSelectedColor"
+    />
+
+    <MudPaper Class="pa-16 ma-2" Elevation="3" Style="@($"background-color:{_pickerColor.ToString(MudColorOutputFormats.RGBA)}")">
+
+    </MudPaper>
+}
+
+<div class="d-flex justify-center mt-8">
+    <div class="col">
+        <MudFab Class="align-self-end"
+            StartIcon="@Icons.Material.Filled.Save"
+            Size="Size.Medium"
+            Color="Color.Primary"
+            Label="Save"
+            OnClick="SaveAndGoToNoteDetails">
+        </MudFab>
+    </div>
+    <div class="col">
+        <MudFab Class="align-self-end ml-5"
+            StartIcon="@Icons.Material.Filled.Cancel"
+            Size="Size.Medium"
+            Color="Color.Error"
+            Label="Cancel"
+            OnClick="Cancel">
+        </MudFab>
+    </div>
+</div>

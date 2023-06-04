@@ -9,5 +9,5 @@ public class AddNoteCommand : ICommand<int>
     {
         Data = data;   
     }
-    public AddEditNoteDto Data { get; set; }
+    public AddEditNoteDto Data { get; private set; }
 }
