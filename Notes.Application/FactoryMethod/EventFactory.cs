@@ -19,7 +19,9 @@ internal class EventFactory: INoteFactory
         {
             Name = _eventToCreate.Name,
             Description = _eventToCreate.Description,
-            Date = _eventToCreate.Date,
+            StartDate = _eventToCreate.StartDate,
+            EndDate = _eventToCreate.EndDate,
+            AllDay = _eventToCreate.AllDay,
         };
 
         return note;

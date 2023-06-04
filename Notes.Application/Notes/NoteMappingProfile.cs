@@ -11,11 +11,13 @@ public class NoteMappingProfile : Profile
         CreateMap<AddEditNoteDto, Note>()
             .ForMember(x => x.Id, opts => opts.MapFrom(op => op.Id))
             .ForMember(x => x.Title, opts => opts.MapFrom(op => op.Title))
-            .ForMember(x => x.Content, opts => opts.MapFrom(op => op.Content));
+            .ForMember(x => x.Content, opts => opts.MapFrom(op => op.Content))
+            .ForMember(x => x.CreatedDate, opts => opts.MapFrom(op => op.CreatedDate));
 
         CreateMap<Note, NoteDto>()
             .ForMember(x => x.Id, opts => opts.MapFrom(op => op.Id))
             .ForMember(x => x.Title, opts => opts.MapFrom(op => op.Title))
-            .ForMember(x => x.Content, opts => opts.MapFrom(op => op.Content));
+            .ForMember(x => x.Content, opts => opts.MapFrom(op => op.Content))
+            .ForMember(x => x.CreatedDate, opts => opts.MapFrom(op => op.CreatedDate));
     }
 }
