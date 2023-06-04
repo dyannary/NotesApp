@@ -6,6 +6,7 @@ using Notes.Application.Events.EditEvent;
 using Notes.Application.Events.GetEvent;
 using Notes.Application.Events.GetEvents;
 using Notes.DataTransferObjects.Events;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Notes.API.Controllers
 {
@@ -48,9 +49,11 @@ namespace Notes.API.Controllers
         }
 
         [HttpPost]
-        public async Task<int> CreateEvent([FromBody] AddEventCommand command)
+        public async Task<ActionResult> CreateEvent([FromBody] AddEditEventDto eventToAdd)
         {
-            return await _mediator.Send(command);
+            var result = await _mediator.Send(new AddEventCommand(eventToAdd));
+
+            return Ok(result);
         }
 
         [HttpPut]

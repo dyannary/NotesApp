@@ -6,6 +6,7 @@ using Notes.Application.Tasks.EditTask;
 using Notes.Application.Tasks.GetTask;
 using Notes.Application.Tasks.GetTasks;
 using Notes.DataTransferObjects.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Notes.API.Controllers;
 
@@ -48,9 +49,11 @@ public class TasksController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<int> CreateTask([FromBody] AddTaskCommand command)
+    public async Task<ActionResult> CreateTask([FromBody] AddEditTaskDto taskToAdd)
     {
-        return await _mediator.Send(command);
+        var result = await _mediator.Send(new AddTaskCommand(taskToAdd));
+
+        return Ok(result);
     }
 
     [HttpPut]
