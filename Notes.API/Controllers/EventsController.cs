@@ -6,7 +6,6 @@ using Notes.Application.Events.EditEvent;
 using Notes.Application.Events.GetEvent;
 using Notes.Application.Events.GetEvents;
 using Notes.DataTransferObjects.Events;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Notes.API.Controllers
 {

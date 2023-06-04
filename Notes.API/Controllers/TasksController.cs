@@ -6,7 +6,6 @@ using Notes.Application.Tasks.EditTask;
 using Notes.Application.Tasks.GetTask;
 using Notes.Application.Tasks.GetTasks;
 using Notes.DataTransferObjects.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Notes.API.Controllers;
 
