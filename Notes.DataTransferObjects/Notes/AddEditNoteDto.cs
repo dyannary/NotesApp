@@ -8,4 +8,5 @@ public class AddEditNoteDto
     public string Title { get; set; } = string.Empty;
     public string Content { get; set; } = string.Empty;
     public DateTime CreatedDate { get; set; }
+    public string Color { get; set; } = string.Empty;
 }
