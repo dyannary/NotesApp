@@ -88,4 +88,42 @@ public class NoteService : INoteService
             throw;
         }
     }
+
+    public async Task DeleteNoteAsync(int id)
+    {
+        try
+        {
+            var response = await _http.DeleteAsync($"api/Notes/{id}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var message = await response.Content.ReadAsStringAsync();
+                throw new Exception(message);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public async Task UpdateNoteAsync(AddEditNoteDto note)
+    {
+        try
+        {
+            var response = await _http.PatchAsJsonAsync("api/Notes", note);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var message = await response.Content.ReadAsStringAsync();
+                throw new Exception(message);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 }
