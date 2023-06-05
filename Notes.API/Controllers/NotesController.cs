@@ -6,6 +6,7 @@ using Notes.Application.Notes.EditNote;
 using Notes.Application.Notes.GetNote;
 using Notes.Application.Notes.GetNotes;
 using Notes.DataTransferObjects.Notes;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Notes.API.Controllers;
 
@@ -56,11 +57,11 @@ public class NotesController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<ActionResult> EditNote([FromBody] EditNoteCommand command)
+    public async Task<ActionResult> EditNote([FromBody] AddEditNoteDto noteToEditDto)
     {
-        var result = await _mediator.Send(command);
-      
-        if(result is null)
+        var result = await _mediator.Send(new EditNoteCommand(noteToEditDto));
+
+        if (result is null)
         {
             return NotFound($"Employee with this Id is not found");
         }
@@ -69,9 +70,10 @@ public class NotesController : ControllerBase
     }
 
     [HttpPatch]
-    public async Task<ActionResult> UpdateNote([FromBody] EditNoteCommand command)
+    public async Task<ActionResult> UpdateNote([FromBody] AddEditNoteDto noteToEditDto)
     {
-        var result = await _mediator.Send(command);
+
+        var result = await _mediator.Send(new EditNoteCommand(noteToEditDto));
 
         if (result is null)
         {
