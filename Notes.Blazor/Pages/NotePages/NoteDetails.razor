@@ -1,9 +1,11 @@
 ﻿@page "/noteDetails/{Id:int}"
 
+@using MudBlazor.Utilities
+
 <PageTitle>Notes details</PageTitle>
 
-<div class="d-flex justify-start mb-8">
-    <MudFab Class="align-self-end"
+<div class="d-flex justify-center mb-8">
+    <MudFab Class="align-self-center"
             StartIcon="@Icons.Material.Filled.ArrowBack"
             Size="Size.Medium"
             Color="Color.Dark"
@@ -36,6 +38,7 @@ else
         @bind-Value="@Note.Title"
         T="string"
         Variant="Variant.Outlined"
+        Class="mt-0 mb-4"
     />
 
     <MudTextField 
@@ -44,7 +47,8 @@ else
         @bind-Value="@Note.Content"
         Text="@Note.Content"
         T="string"
-        Lines="10"
+        Lines="30"
         Variant="Variant.Outlined"
+        Class="mt-0"
     />
 }
