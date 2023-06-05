@@ -1,5 +1,7 @@
 ﻿@page "/notes"
 
+@using MudBlazor.Utilities
+
 <PageTitle>Notes</PageTitle>
 
 <div class="d-flex justify-center mb-8">
@@ -24,8 +26,9 @@ else
         @foreach (var note in Notes)
         {
             <MudPaper @onclick="() => { NoteDetails(note.Id);}"
-              Elevation="4"
-                      style=" background-color: hsla(0, 0%, 98%, 0.2)">
+                Elevation="3"
+                Style="@($"border-color:{new MudColor(note.Color).ToString(MudColorOutputFormats.RGBA)}")"
+                Class="border-2">
                 <MudCard>
                     <MudCardHeader>
                         <CardHeaderContent>
@@ -33,6 +36,9 @@ else
                                 @note.Title
                             </MudText>
                         </CardHeaderContent>
+                        <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Default" @onclick="async () => { await DeleteNote(note);}" />
+                        </CardHeaderActions>
                     </MudCardHeader>
                     <MudCardContent>
                         <MudText>@note.Content</MudText>

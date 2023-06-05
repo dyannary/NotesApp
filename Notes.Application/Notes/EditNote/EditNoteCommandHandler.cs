@@ -24,7 +24,16 @@ public class EditNoteCommandHandler : IRequestHandler<EditNoteCommand, int?>
             return null;
         }
 
-        _mapper.Map(request.Data, noteToEdit);
+        if(!string.IsNullOrEmpty(request.Data.Title))
+        {
+            noteToEdit.Title = request.Data.Title;
+        }
+
+        if (!string.IsNullOrEmpty(request.Data.Content))
+        {
+            noteToEdit.Content = request.Data.Content;
+        }
+
         await _notesDbContext.SaveChangesAsync(cancellationToken);
        
         return noteToEdit.Id;

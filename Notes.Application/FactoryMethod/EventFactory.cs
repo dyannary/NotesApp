@@ -22,6 +22,7 @@ internal class EventFactory: INoteFactory
             StartDate = _eventToCreate.StartDate,
             EndDate = _eventToCreate.EndDate,
             AllDay = _eventToCreate.AllDay,
+            CreatedDate = DateTime.Now
         };
 
         return note;

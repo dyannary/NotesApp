@@ -31,12 +31,24 @@ public partial class NoteDetails
 
     public async Task ChangeNoteTitle()
     {
+        var noteToEdit = new AddEditNoteDto()
+        {
+            Id = Note.Id,
+            Title = Note.Title
+        };
 
+        await NoteService.UpdateNoteAsync(noteToEdit);
     }
 
     public async Task ChangeNoteContent()
     {
+        var noteToEdit = new AddEditNoteDto()
+        {
+            Id = Note.Id,
+            Content = Note.Content
+        };
 
+        await NoteService.UpdateNoteAsync(noteToEdit);
     }
 
     private void GoToNotePage()

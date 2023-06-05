@@ -18,7 +18,8 @@ internal class NoteFactory: INoteFactory
         {
             Title = _noteToCreate.Title,
             Content = _noteToCreate.Content,
-            CreatedDate = _noteToCreate.CreatedDate,
+            CreatedDate = DateTime.Now,
+            Color = _noteToCreate.Color,
         };
 
         return note;
