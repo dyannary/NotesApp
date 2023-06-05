@@ -5,5 +5,10 @@ namespace Notes.Application.Events.EditEvent;
 
 public class EditEventCommand : IRequest<int?>
 {
-    public AddEditEventDto? Data { get; set; }
+    public AddEditEventDto Data { get; set; }
+
+    public EditEventCommand(AddEditEventDto data)
+    {
+        Data = data;
+    }
 }

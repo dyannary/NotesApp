@@ -1,0 +1,53 @@
+﻿@page "/newEvent"
+
+<h3>Event name:</h3>
+
+<MudTextField Class="mt-1 mb-4" @bind-Value="@EventName"
+              T="string"
+              Variant="Variant.Outlined"/>
+
+<div class="d-flex mt-2">
+    <MudDatePicker PickerVariant="PickerVariant.Dialog" Label="Start date" Class="start flex-1 mr-5" Elevation="0"
+                   Color="Color.Primary"
+                   @bind-Date="StartDate"/>
+
+    <MudDatePicker PickerVariant="PickerVariant.Dialog" Label="End date" Class="end flex-1 ml-5" Elevation="0"
+                   Color="Color.Primary" 
+                   @bind-Date="EndDate"/>
+</div>
+
+<MudCheckBox Class="mt-2" @bind-Checked="@AllDay" Color="Color.Primary" Style="border-c">
+    All Day
+</MudCheckBox>
+
+<MudTextField Class="mt-0" @bind-Value="@EventDescription"
+              T="string"
+              Variant="Variant.Outlined" />
+
+<div class="d-flex justify-center mt-8">
+    <div class="col">
+        <MudFab Class="align-self-end"
+                StartIcon="@Icons.Material.Filled.Save"
+                Size="Size.Medium"
+                Color="Color.Primary"
+                Label="Save"
+                OnClick="SaveAndGoToEventDetails">
+        </MudFab>
+    </div>
+    <div class="col">
+        <MudFab Class="align-self-end ml-5"
+                StartIcon="@Icons.Material.Filled.Cancel"
+                Size="Size.Medium"
+                Color="Color.Error"
+                Label="Cancel"
+                OnClick="Cancel">
+        </MudFab>
+    </div>
+</div>
+
+<style>
+    .start .end {
+        width: 400px;
+        background-color: mediumpurple;
+    }
+</style>

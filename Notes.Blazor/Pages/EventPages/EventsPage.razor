@@ -1,0 +1,71 @@
+﻿@page "/events"
+
+<PageTitle>Events details</PageTitle>
+
+<div class="d-flex justify-center mb-8">
+    <MudFab Class="align-self-end mud-theme-primary"
+            StartIcon="@Icons.Material.Filled.Add"
+            Size="Size.Medium"
+            Label="Add event"
+            OnClick="NewEvent">
+    </MudFab>
+</div>
+
+@if (!ShowAllEvents)
+{
+    <div class="d-flex justify-center mb-8">
+        <MudPaper Elevation="4">
+            <MudHidden Breakpoint="@Breakpoint.Xxl" Class="mb-3">
+                <MudDatePicker PickerVariant="PickerVariant.Static" Orientation="Orientation.Landscape" Date="@(selectedDate)"
+                    DateChanged="HandleDataChanged" Class="d-flex justify-center">
+                <PickerActions>
+                    <MudButton Class="mr-auto align-self-start" OnClick="AllEvents">All events</MudButton>
+                </PickerActions>
+                </MudDatePicker>
+            </MudHidden>
+        </MudPaper>
+    </div>
+} 
+else
+{
+    <div class="d-flex justify-end mb-3">
+        <MudFab Class="align-self-end mud-theme-secondary"
+            StartIcon="@Icons.Material.Filled.CalendarMonth"
+            Size="Size.Small"
+            Label="Pick a date"
+            OnClick="() => {ShowAllEvents = false;}">
+        </MudFab>
+    </div>
+}
+
+@if (Events is null)
+{
+    <MudAlert Severity="Severity.Info"
+          ContentAlignment="HorizontalAlignment.Center">
+        No events!
+    </MudAlert>
+}
+else
+{
+    <MudStack>
+        @foreach (var myEvent in FilteredEvents())
+        {
+            <MudPaper @onclick="() => { EventDetails(myEvent.Id);}"
+              Elevation="4"
+                      style=" background-color: hsla(0, 0%, 98%, 0.2)">
+                <MudCard>
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <MudText Typo="Typo.h6">
+                                @myEvent.Name
+                            </MudText>
+                        </CardHeaderContent>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudText>@myEvent.Description</MudText>
+                    </MudCardContent>
+                </MudCard>
+            </MudPaper>
+        }
+    </MudStack>
+}

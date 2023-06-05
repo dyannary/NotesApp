@@ -1,0 +1,77 @@
+﻿@using MudBlazor.Components
+
+@page "/eventDetails/{Id:int}"
+
+<PageTitle>Event details</PageTitle>
+
+<div class="d-flex justify-start mb-8">
+    <MudFab Class="align-self-end"
+            StartIcon="@Icons.Material.Filled.ArrowBack"
+            Size="Size.Medium"
+            Color="Color.Dark"
+            Label="All notes"
+            OnClick="GoToNotePage">
+    </MudFab>
+</div>
+
+@if (Event is null && string.IsNullOrEmpty(ErrorMessage))
+{
+    <div class="centerScreen"
+         style="
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);">
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+    </div>
+}
+else if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <MudAlert Severity="Severity.Error">@ErrorMessage</MudAlert>
+}
+else
+{
+    <MudTextField DebounceInterval="500"
+        OnDebounceIntervalElapsed="ChangeEventName"
+        @bind-Value="@Event.Name"
+        T="string"
+        Variant="Variant.Outlined" />
+
+    <div class="d-flex mt-2">
+        <MudDatePicker 
+            PickerVariant="PickerVariant.Dialog" 
+            Label="Start date" 
+            Class="start flex-1 mr-5" 
+            Elevation="0" 
+            Color="Color.Primary"
+            @bind-Date="@StartDateNullable" />
+        <MudDatePicker 
+            PickerVariant="PickerVariant.Dialog" 
+            Label="End date" 
+            Class="end flex-1 ml-5" 
+            Elevation="0"
+            Color="Color.Primary" 
+            @bind-Date="@EndDateNullable" />
+    </div>
+
+    <MudTextField DebounceInterval="500"
+        OnDebounceIntervalElapsed="ChangeEventContent"
+        @bind-Value="@Event.Description"
+        Text="@Event.Description"
+        T="string"
+        Lines="10"
+        Variant="Variant.Outlined" />
+}
+
+<div class="d-flex justify-center mt-8">
+    <div class="col">
+        <MudFab Class="align-self-end"
+        StartIcon="@Icons.Material.Filled.Save"
+        Size="Size.Medium"
+        Color="Color.Primary"
+        Label="Save"
+        OnClick="SaveAndGoToEventPage">
+        </MudFab>
+    </div>
+</div>

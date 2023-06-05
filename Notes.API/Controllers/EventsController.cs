@@ -1,10 +1,12 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Notes.Application.Events.AddEvent;
 using Notes.Application.Events.DeleteEvent;
 using Notes.Application.Events.EditEvent;
 using Notes.Application.Events.GetEvent;
 using Notes.Application.Events.GetEvents;
+using Notes.Application.Events.PatchEvent;
 using Notes.DataTransferObjects.Events;
 
 namespace Notes.API.Controllers
@@ -56,11 +58,11 @@ namespace Notes.API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> EditEvent([FromBody] EditEventCommand command)
+        public async Task<ActionResult> EditEvent([FromBody] AddEditEventDto eventToEdit)
         {
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(new EditEventCommand(eventToEdit));
 
-            if( result is null )
+            if(result is null )
             {
                 return NotFound($"Event with this Id is not found!");
             }
@@ -68,12 +70,12 @@ namespace Notes.API.Controllers
             return Ok(result);
         }
 
-        [HttpPatch]
-        public async Task<ActionResult> UpdateEvent([FromBody] EditEventCommand command)
+        [HttpPatch("{id}")]
+        public async Task<ActionResult> UpdateEvent([FromRoute] int id, [FromBody] JsonPatchDocument<AddEditEventDto> patchDoc)
         {
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(new PatchEventCommand(id, patchDoc));
 
-            if (result is null)
+            if(result is null)
             {
                 return NotFound();
             }
@@ -87,7 +89,7 @@ namespace Notes.API.Controllers
             var command = new DeleteEventCommand { Id = id };
             var result = await _mediator.Send(command);
 
-            if (result is null)
+            if(result is null)
             {
                 return NotFound($"Employee with Id = {id} not found");
             }

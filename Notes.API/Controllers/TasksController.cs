@@ -56,9 +56,9 @@ public class TasksController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<ActionResult> EditTask([FromBody] EditTaskCommand command)
+    public async Task<ActionResult> EditTask([FromBody] AddEditTaskDto taskToEdit)
     {
-        var result = await _mediator.Send(command);
+        var result = await _mediator.Send(new EditTaskCommand(taskToEdit));
 
         if (result is null)
         {
@@ -69,9 +69,9 @@ public class TasksController : ControllerBase
     }
 
     [HttpPatch]
-    public async Task<ActionResult> UpdateTask([FromBody] EditTaskCommand command)
+    public async Task<ActionResult> UpdateTask([FromBody] AddEditTaskDto taskToEdit)
     {
-        var result = await _mediator.Send(command);
+        var result = await _mediator.Send(new EditTaskCommand(taskToEdit));
 
         if (result is null)
         {
