@@ -21,7 +21,7 @@ internal class TaskFactory: INoteFactory
             Content = _taskToCreate.Content,
             Priority = _taskToCreate.Priority,
             Deadline = _taskToCreate.Deadline,
-            CreatedDate = _taskToCreate.CreatedDate,
+            CreatedDate = DateTime.Now,
             IsCompleted = _taskToCreate.IsCompleted,
         };
         return task;
