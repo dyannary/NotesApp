@@ -18,6 +18,8 @@ builder.Services.AddScoped(sp => new HttpClient
 });
 builder.Services.AddMudServices();
 
+
 builder.Services.AddScoped<INoteService, NoteService>();
+builder.Services.AddScoped<IEventService, EventService>();
 
 await builder.Build().RunAsync();
