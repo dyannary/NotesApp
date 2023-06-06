@@ -5,7 +5,7 @@ namespace Notes.Blazor.Builder;
 
 public class NoteBuilder
 {
-    private NoteDto _note = new();
+    private AddEditNoteDto _note = new();
 
     public NoteBuilder()
     {
@@ -14,7 +14,7 @@ public class NoteBuilder
 
     public void Reset()
     {
-        _note = new NoteDto();
+        _note = new AddEditNoteDto();
     }
 
     public NoteBuilder AddTitle(string title)
@@ -29,13 +29,19 @@ public class NoteBuilder
         return this;
     }
 
+    public NoteBuilder RemoveContent()
+    {
+        _note.Content = string.Empty;
+        return this;
+    }
+
     public NoteBuilder AddBorderColor(string color)
     {
         _note.Color = color;
         return this;
     }
-
-    public NoteBuilder RemoveBorderColor(string color)
+        
+    public NoteBuilder RemoveBorderColor()
     {
         _note.Color = "#27272f";
         return this;
@@ -47,7 +53,8 @@ public class NoteBuilder
         return this;
     }
 
-    public NoteDto Build()
+
+    public AddEditNoteDto Build()
     {
         var note = _note.Clone();
         Reset();

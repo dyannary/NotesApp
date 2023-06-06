@@ -9,7 +9,7 @@ public class NoteDto
     public string Content { get; set; } = string.Empty;
     public DateTime CreatedDate { get; set; }
     public string Color { get; set; } = string.Empty;
-    public List<NoteTagDto> NoteTags { get; set; } = new List<NoteTagDto>();
+    public List<NoteTagDto> NoteTags { get; set; } = new ();
 
 
     public NoteDto Clone()
