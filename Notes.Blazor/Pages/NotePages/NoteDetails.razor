@@ -1,8 +1,4 @@
-﻿@using MudBlazor.Components
-
-@page "/noteDetails/{Id:int}"
-
-@using MudBlazor.Utilities
+﻿@page "/noteDetails/{Id:int}"
 
 <PageTitle>Notes details</PageTitle>
 
@@ -10,7 +6,7 @@
     <MudFab Class="align-self-center"
             StartIcon="@Icons.Material.Filled.ArrowBack"
             Size="Size.Medium"
-            Color="Color.Dark"
+            Color="Color.Primary"
             Label="All notes"
             OnClick="GoToNotePage">
     </MudFab>
@@ -34,23 +30,74 @@ else if (!string.IsNullOrEmpty(ErrorMessage))
 }
 else
 {
-    <MudTextField 
-        DebounceInterval="500" 
-        OnDebounceIntervalElapsed="ChangeNoteTitle" 
-        @bind-Value="@Note.Title"
-        T="string"
-        Variant="Variant.Outlined"
-        Class="mt-0 mb-4"
-    />
+    <MudGrid>
+        <MudItem xs="9">
+            <MudTextField 
+                DebounceInterval="500" 
+                OnDebounceIntervalElapsed="ChangeNoteTitle" 
+                @bind-Value="@Note.Title"
+                T="string"
+                Variant="Variant.Outlined"
+                Class="mt-0 mb-4"
+            />
 
-    <MudTextField 
-        DebounceInterval="500" 
-        OnDebounceIntervalElapsed="ChangeNoteContent"
-        @bind-Value="@Note.Content"
-        Text="@Note.Content"
-        T="string"
-        Lines="30"
-        Variant="Variant.Outlined"
-        Class="mt-0"
-    />
+            <MudTextField 
+                DebounceInterval="500" 
+                OnDebounceIntervalElapsed="ChangeNoteContent"
+                @bind-Value="@Note.Content"
+                Text="@Note.Content"
+                T="string"
+                Lines="30"
+                Variant="Variant.Outlined"
+                Class="mt-0"
+            />
+        </MudItem>
+
+        <MudItem xs="3">
+            <MudContainer Style="max-width: 190px">
+                @if (!StartAddTag)
+                {
+                    <div class="d-flex justify-center mb-8 mt-1">
+                        <MudFab Class="align-self-center"
+                                StartIcon="@Icons.Material.Filled.Add"
+                                Size="Size.Small"
+                                Color="Color.Dark"
+                                Label="Add tag"
+                                OnClick="AddTag">
+                        </MudFab>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex justify-center mb-8">
+                        <MudStack>
+                            <MudTextField 
+                                @bind-Value="NewTagName" 
+                                Class="mt-0" 
+                                Label="Tag name" 
+                                MaxLength="15"
+                                Variant="Variant.Outlined">
+
+                            </MudTextField>
+                            <MudFab Class="align-self-center"
+                                    StartIcon="@Icons.Material.Filled.Add"
+                                    Size="Size.Small"
+                                    Color="Color.Success"
+                                    Label="Save"
+                                    OnClick="SaveTag">
+                            </MudFab>
+                        </MudStack>
+                    </div>
+                }
+                <MudStack>
+                    @foreach (var tag in NoteTags)
+                    {
+                        <MudChip Color="@((Color)tag.Color)" Class="mb-2" OnClose="async () => { await DeleteTag(tag); }">
+                            @tag.Title
+                        </MudChip>
+                    }
+                </MudStack>
+            </MudContainer>
+        </MudItem>
+    </MudGrid>
 }
