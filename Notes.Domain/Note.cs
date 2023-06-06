@@ -5,4 +5,5 @@ public class Note : Entity
     public string Title { get; set; } = string.Empty;
     public string Content { get; set; } = string.Empty;
     public string Color { get; set; } = string.Empty;
-}
+    public ICollection<NoteTag> NoteTags { get; set; } = new List<NoteTag>();
+}       

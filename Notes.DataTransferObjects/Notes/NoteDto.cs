@@ -1,4 +1,4 @@
-﻿using Notes.DataTransferObjects.Enums;
+﻿using Notes.DataTransferObjects.NoteTags;
 
 namespace Notes.DataTransferObjects.Notes;
 
@@ -9,4 +9,5 @@ public class NoteDto
     public string Content { get; set; } = string.Empty;
     public DateTime CreatedDate { get; set; }
     public string Color { get; set; } = string.Empty;
+    public List<NoteTagDto> NoteTags { get; set; } = new List<NoteTagDto>();
 }
