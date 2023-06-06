@@ -9,10 +9,31 @@
     @bind-Value="@_noteTitle"
     T="string" 
     Variant="Variant.Outlined"
-    Style="@($"border-color:{_pickerColor.ToString(MudColorOutputFormats.RGBA)}")"
+    Style="@($"border-color:{_selectedColor.ToString(MudColorOutputFormats.RGBA)}")"
 />
 
-<MudCheckBox Class="mt-2" @bind-Checked="@_addSpecialColor" Color="Color.Primary" Style="border-c">
+
+<MudCheckBox Class="mt-2" 
+             @bind-Checked="@_addNoteContent"
+             Color="Color.Primary" 
+             Style="border-c">
+    Add note content
+</MudCheckBox>
+
+@if (_addNoteContent)
+{
+    <MudTextField 
+        @bind-Value="@_noteContent"
+        T="string" 
+        Variant="Variant.Outlined"
+        Style="@($"border-color:{_selectedColor.ToString(MudColorOutputFormats.RGBA)}")"
+        Lines="5" />
+}
+
+<MudCheckBox Class="mt-2" 
+    @bind-Checked="@_addSpecialColor"
+    Color="Color.Primary" 
+    Style="border-c">
     Add border color
 </MudCheckBox>
 
@@ -20,11 +41,11 @@
 {
     <div class="d-flex justify-center mt-8">
         <MudPaper Width="300px">
-             <MudColorPicker
+            <MudColorPicker
                 Elevation="3" 
                 ColorPickerView="ColorPickerView.Palette"
                 PickerVariant="PickerVariant.Static"
-                Value="_pickerColor"
+                Value="_selectedColor"
                 ValueChanged="UpdateSelectedColor"
                 Palette="CustomPalette"
                 DisableToolbar="true" 
@@ -34,9 +55,43 @@
                 DisableInputs="true"
                 DisableModeSwitch="true" 
             />
-    </MudPaper>
+        </MudPaper>
     </div>
-    
+}
+
+<MudCheckBox Class="mt-2" 
+             @bind-Checked="@_addTags" 
+             Color="Color.Primary" 
+             Style="border-c">
+    Add tags
+</MudCheckBox>
+
+@if (_addTags)
+{
+    <div class="d-flex">
+        <MudTextField 
+            @bind-Value="_tagNameToAdd" 
+            Class="mt-0 mr-3 flex-grow-0"
+            Style="max-width: 190px"
+            Label="Tag name" 
+            MaxLength="15"
+            Margin="Margin.Dense"
+            Variant="Variant.Filled"/>
+        <MudFab Class="align-self-center"
+                StartIcon="@Icons.Material.Filled.Add"
+                Size="Size.Small"
+                Color="Color.Success"
+                Label="Save"
+                OnClick="SaveTag"/>
+    </div>
+    <div class="d-flex flex-wrap mt-3">
+        @foreach (var tag in _noteTags)
+        {
+            <MudChip Color="@((Color)tag.Color)" Class="align-self-center" OnClose="() => { DeleteTag(tag); }">
+                @tag.Title
+            </MudChip>
+        }
+    </div>
 }
 
 <div class="d-flex justify-center mt-8">
