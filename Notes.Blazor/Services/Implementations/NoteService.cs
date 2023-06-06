@@ -8,7 +8,6 @@ namespace Notes.Blazor.Services.Implementations;
 
 public class NoteService : INoteService
 {
-
     private readonly HttpClient _http;
 
     public NoteService(HttpClient http)

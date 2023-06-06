@@ -28,7 +28,7 @@ public class TasksController : ControllerBase
 
         if(task is null)
         {
-            return BadRequest($"Note not found");
+            return BadRequest($"Task not found");
         }
 
         return Ok(task);
@@ -62,7 +62,7 @@ public class TasksController : ControllerBase
 
         if (result is null)
         {
-            return NotFound($"Employee not found");
+            return NotFound($"Task not found");
         }
 
         return Ok(result);
@@ -89,7 +89,7 @@ public class TasksController : ControllerBase
 
         if (result is null)
         {
-            return NotFound($"Employee not found");
+            return NotFound($"Task not found");
         }
 
         return Ok(result);

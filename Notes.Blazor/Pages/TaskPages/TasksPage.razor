@@ -1,0 +1,37 @@
+﻿@page "/tasks"
+
+@using MudBlazor.Utilities
+
+<PageTitle>Tasks</PageTitle>
+
+<div class="d-flex justify-center mb-8">
+    <MudFab Class="align-self-end mud-theme-primary"
+            StartIcon="@Icons.Material.Filled.Add"
+            Size="Size.Medium"
+            Label="Add task"
+            OnClick="NewTask">
+    </MudFab>
+</div>
+
+@if (!Tasks.Any())
+{
+    <MudAlert Severity="Severity.Info"
+              ContentAlignment="HorizontalAlignment.Center">
+        No tasks!
+    </MudAlert>
+}
+else
+{
+    <div>
+        List of tasks
+    </div>
+}
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
