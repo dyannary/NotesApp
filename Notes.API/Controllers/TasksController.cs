@@ -28,7 +28,7 @@ public class TasksController : ControllerBase
 
         if(task is null)
         {
-            return BadRequest($"Note with id: {id} not found");
+            return BadRequest($"Note not found");
         }
 
         return Ok(task);
@@ -62,7 +62,7 @@ public class TasksController : ControllerBase
 
         if (result is null)
         {
-            return NotFound($"Employee with this Id is not found");
+            return NotFound($"Employee not found");
         }
 
         return Ok(result);
@@ -81,7 +81,7 @@ public class TasksController : ControllerBase
         return Ok(result);
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{Id}")]
     public async Task<ActionResult> DeleteTask([FromRoute] int id)
     {
         var command = new DeleteTaskCommand { Id = id };
@@ -89,7 +89,7 @@ public class TasksController : ControllerBase
 
         if (result is null)
         {
-            return NotFound($"Employee with Id = {id} not found");
+            return NotFound($"Employee not found");
         }
 
         return Ok(result);

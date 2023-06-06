@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Notes.Persistence.Context;
 
@@ -11,9 +12,11 @@ using Notes.Persistence.Context;
 namespace Notes.Persistence.Migrations
 {
     [DbContext(typeof(NotesDbContext))]
-    partial class NotesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230605211145_Change Color field to int")]
+    partial class ChangeColorfieldtoint
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,7 +115,7 @@ namespace Notes.Persistence.Migrations
 
                     b.HasIndex("NoteId");
 
-                    b.ToTable("NoteTags");
+                    b.ToTable("Tag");
                 });
 
             modelBuilder.Entity("Notes.Domain.Task", b =>

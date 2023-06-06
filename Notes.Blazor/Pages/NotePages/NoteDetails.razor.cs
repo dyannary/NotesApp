@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Notes.Blazor.Services.Interfaces;
 using Notes.DataTransferObjects.Notes;
+using Notes.DataTransferObjects.NoteTags;
 
 namespace Notes.Blazor.Pages.NotePages;
     
@@ -12,20 +13,41 @@ public partial class NoteDetails
     public INoteService NoteService { get; set; }
 
     [Inject]
+    public INoteTagService NoteTagService { get; set; }
+
+    [Inject]
     public NavigationManager NavigationManager { get; set; }
 
     public NoteDto? Note { get; set; }
+
+    public List<NoteTagDto> NoteTags { get; set; } = new List<NoteTagDto>();
+
     public string ErrorMessage { get; set; } = string.Empty;
+
+    public bool StartAddTag { get; set; } = false;
+
+    public string NewTagName { get; set; } = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
             Note = await NoteService.GetNoteByIdAsync(Id);
+            await GetNoteTags();
         }
         catch (Exception e)
         {
             ErrorMessage = e.Message;
+        }
+    }
+
+    public async Task GetNoteTags()
+    {
+        var res = await NoteTagService.GetNoteTagsAsync(Note.Id);
+
+        if (res.Any())
+        {
+            NoteTags = (List<NoteTagDto>)res;
         }
     }
 
@@ -54,5 +76,36 @@ public partial class NoteDetails
     private void GoToNotePage()
     {
         NavigationManager.NavigateTo("notes");
+    }
+
+    public void AddTag()
+    {
+        StartAddTag = true;
+    }
+
+    public async Task SaveTag()
+    {
+        var noteTag = new NoteTagDto()
+        {
+            Title = NewTagName,
+            NoteId = Note.Id,
+            Color = new Random().Next(10)
+        };
+
+        NoteTags.Add(noteTag);
+
+        await NoteTagService.AddNoteTagAsync(noteTag);
+
+        NewTagName = string.Empty;
+        StartAddTag = false;
+    }
+
+    public async Task DeleteTag(NoteTagDto tagToDelete)
+    {
+        await NoteTagService.DeleteNoteTagAsync(tagToDelete.Id);
+
+        NoteTags.Remove(tagToDelete);
+
+        await GetNoteTags();
     }
 }

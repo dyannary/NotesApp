@@ -4,6 +4,7 @@ using MudBlazor.Utilities;
 using Notes.Blazor.Services.Interfaces;
 using Notes.DataTransferObjects.Notes;
 using System;
+using Notes.Blazor.Builder;
 
 namespace Notes.Blazor.Pages.NotePages;
 
@@ -16,13 +17,20 @@ public partial class AddNotePage
     public NavigationManager NavigationManager { get; set; }
 
     [Inject]
-    ISnackbar Snackbar { get; set; }
+    public ISnackbar Snackbar { get; set; }
 
-    public string NoteTitle { get; set; } = "Title";
+    private string _noteTitle { get; set; } = "Title";
 
-    public bool AddSpecialColor { get; set; }
+    private bool _addSpecialColor { get; set; }
 
-    public MudColor _pickerColor = "#27272f";
+    private MudColor _pickerColor = "#27272f";
+
+    private NoteBuilder _noteBuilder { get; }
+
+    public AddNotePage()
+    {
+        _noteBuilder = new NoteBuilder();
+    }
 
     public async Task SaveAndGoToNoteDetails()
     {
@@ -31,14 +39,14 @@ public partial class AddNotePage
             int id = await NoteService.AddNoteAsync(
             new AddEditNoteDto() 
             {
-                Title = NoteTitle,
+                Title = _noteTitle,
                 Color = _pickerColor.Value,
             });
 
             if (id == 0)
                 throw new Exception();
-            else
-                NavigationManager.NavigateTo($"noteDetails/{id}");
+            
+            NavigationManager.NavigateTo($"noteDetails/{id}");
         }
         catch (Exception)
         {

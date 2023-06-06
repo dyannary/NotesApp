@@ -1,6 +1,4 @@
-﻿using Notes.DataTransferObjects.Enums;
-
-namespace Notes.DataTransferObjects.Notes;
+﻿namespace Notes.DataTransferObjects.Notes;
 
 public class AddEditNoteDto
 {

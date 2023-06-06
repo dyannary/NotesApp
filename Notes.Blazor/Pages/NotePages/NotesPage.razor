@@ -27,8 +27,9 @@ else
         {
             <MudPaper @onclick="() => { NoteDetails(note.Id);}"
                 Elevation="3"
-                Style="@($"border-color:{new MudColor(note.Color).ToString(MudColorOutputFormats.RGBA)}")"
-                Class="border-2">
+                      Style="@($"border-color:{new MudColor(string.IsNullOrEmpty(note.Color) ? "c5c5db" : note.Color).ToString(MudColorOutputFormats.RGBA)}")"
+                Class="border-2"
+            >
                 <MudCard>
                     <MudCardHeader>
                         <CardHeaderContent>
@@ -41,7 +42,12 @@ else
                         </CardHeaderActions>
                     </MudCardHeader>
                     <MudCardContent>
-                        <MudText>@note.Content</MudText>
+                        @foreach (var noteTag in note.NoteTags)
+                        {
+                            <MudChip Color="@((Color)noteTag.Color)" Class="mr-2">
+                                @noteTag.Title
+                            </MudChip>
+                        }
                     </MudCardContent>
                 </MudCard>
             </MudPaper>

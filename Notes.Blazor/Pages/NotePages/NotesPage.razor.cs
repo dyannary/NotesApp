@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using Notes.Blazor.Services.Implementations;
 using Notes.Blazor.Services.Interfaces;
 using Notes.DataTransferObjects.Notes;
+using Notes.DataTransferObjects.NoteTags;
 
 namespace Notes.Blazor.Pages.NotePages;
 
@@ -9,6 +11,8 @@ public partial class NotesPage
 {
     [Inject]
     public INoteService NoteService { get; set; }
+    [Inject]
+    public INoteTagService NoteTagService { get; set; }
 
     [Inject]
     public NavigationManager NavigationManager { get; set; }
@@ -28,19 +32,26 @@ public partial class NotesPage
     {
         try
         {
-            Notes = (List<NoteDto>?)await NoteService.GetNotesAsync();
+            Notes = (List<NoteDto>?) await NoteService.GetNotesAsync();
 
             foreach (var note in Notes)
             {
-                if (string.IsNullOrEmpty(note.Color))
-                {
-                    note.Color = "#c5c5db";
-                }
+                await GetNoteTags(note);
             }
         }
         catch (Exception e)
         {
             ErrorMessage = e.Message;
+        }
+    }
+
+    public async Task GetNoteTags(NoteDto note)
+    {
+        var res = await NoteTagService.GetNoteTagsAsync(note.Id);
+
+        if (res.Any())
+        {
+            note.NoteTags = (List<NoteTagDto>)res;
         }
     }
 

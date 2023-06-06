@@ -13,4 +13,5 @@ public class NotesDbContext : DbContext
     public DbSet<Note> Notes { get; set; } 
     public DbSet<Domain.Task> Tasks { get; set; }
     public DbSet<Event> Events { get; set; }
-}
+    public DbSet<NoteTag> NoteTags { get; set; }
+}   

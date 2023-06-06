@@ -20,6 +20,7 @@ builder.Services.AddMudServices();
 
 
 builder.Services.AddScoped<INoteService, NoteService>();
+builder.Services.AddScoped<INoteTagService, NoteTagService>();
 builder.Services.AddScoped<IEventService, EventService>();
 
 await builder.Build().RunAsync();

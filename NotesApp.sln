@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes.Application", "Notes.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes.DataTransferObjects", "Notes.DataTransferObjects\Notes.DataTransferObjects.csproj", "{3BFB4683-E69B-42AE-899D-711CF94F195F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes.Web", "Notes.Web\Notes.Web.csproj", "{7FF18399-EF58-4594-9F36-09EE8F0268B5}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes.Persistence", "Notes.Persistence\Notes.Persistence.csproj", "{ACB248A7-6322-49B2-BDAF-A21E0872B0A8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes.Domain", "Notes.Domain\Notes.Domain.csproj", "{30749B7C-B51C-4F1B-977F-C3DB45194D30}"
@@ -35,10 +33,6 @@ Global
 		{3BFB4683-E69B-42AE-899D-711CF94F195F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BFB4683-E69B-42AE-899D-711CF94F195F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BFB4683-E69B-42AE-899D-711CF94F195F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7FF18399-EF58-4594-9F36-09EE8F0268B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7FF18399-EF58-4594-9F36-09EE8F0268B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7FF18399-EF58-4594-9F36-09EE8F0268B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7FF18399-EF58-4594-9F36-09EE8F0268B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ACB248A7-6322-49B2-BDAF-A21E0872B0A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ACB248A7-6322-49B2-BDAF-A21E0872B0A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACB248A7-6322-49B2-BDAF-A21E0872B0A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
