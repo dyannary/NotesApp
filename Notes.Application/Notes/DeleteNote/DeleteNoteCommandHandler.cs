@@ -15,7 +15,7 @@ public class DeleteNoteCommandHandler : IRequestHandler<DeleteNoteCommand, Unit?
     }
     public async Task<Unit?> Handle(DeleteNoteCommand request, CancellationToken cancellationToken)
     {
-        var noteToDelete = await _notesDbContext.Notes.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var noteToDelete = await _notesDbContext.Notes.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken: cancellationToken);
 
         if (noteToDelete is null)
         {
@@ -24,7 +24,7 @@ public class DeleteNoteCommandHandler : IRequestHandler<DeleteNoteCommand, Unit?
 
         _notesDbContext.Notes.Remove(noteToDelete);
 
-        await _notesDbContext.SaveChangesAsync();
+        await _notesDbContext.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;
     }

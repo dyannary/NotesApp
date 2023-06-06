@@ -18,7 +18,7 @@ public class EditEventCommandHandler : IRequestHandler<EditEventCommand, int?>
 
     public async Task<int?> Handle(EditEventCommand request, CancellationToken cancellationToken)
     {
-        var editEvent = await _noteDbContext.Events.FirstOrDefaultAsync(x => x.Id == request.Data.Id);
+        var editEvent = await _noteDbContext.Events.FirstOrDefaultAsync(x => x.Id == request.Data.Id, cancellationToken: cancellationToken);
 
         if(editEvent is null)
         {
@@ -26,7 +26,7 @@ public class EditEventCommandHandler : IRequestHandler<EditEventCommand, int?>
         }
 
         _mapper.Map(request.Data, editEvent);
-        await _noteDbContext.SaveChangesAsync();
+        await _noteDbContext.SaveChangesAsync(cancellationToken);
 
         return editEvent.Id;
     }

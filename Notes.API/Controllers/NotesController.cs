@@ -6,7 +6,6 @@ using Notes.Application.Notes.EditNote;
 using Notes.Application.Notes.GetNote;
 using Notes.Application.Notes.GetNotes;
 using Notes.DataTransferObjects.Notes;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Notes.API.Controllers;
 
@@ -29,7 +28,7 @@ public class NotesController : ControllerBase
 
         if (note is null)
         {
-            return BadRequest($"Note with id: {id} not found");
+            return BadRequest($"Note with not found");
         }
 
         return Ok(note);
@@ -63,7 +62,7 @@ public class NotesController : ControllerBase
 
         if (result is null)
         {
-            return NotFound($"Employee with this Id is not found");
+            return NotFound($"Note not found");
         }
 
         return Ok(result);
@@ -91,7 +90,7 @@ public class NotesController : ControllerBase
 
         if(result is null)
         {
-            return NotFound($"Employee with Id = {id} not found");
+            return NotFound("Note not found");
         }
 
         return Ok(result);
