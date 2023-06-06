@@ -6,17 +6,17 @@
 
 <h3>Note title:</h3>
 <MudTextField 
-    @bind-Value="@NoteTitle"
+    @bind-Value="@_noteTitle"
     T="string" 
     Variant="Variant.Outlined"
     Style="@($"border-color:{_pickerColor.ToString(MudColorOutputFormats.RGBA)}")"
 />
 
-<MudCheckBox Class="mt-2" @bind-Checked="@AddSpecialColor" Color="Color.Primary" Style="border-c">
+<MudCheckBox Class="mt-2" @bind-Checked="@_addSpecialColor" Color="Color.Primary" Style="border-c">
     Add border color
 </MudCheckBox>
 
-@if (AddSpecialColor)
+@if (_addSpecialColor)
 {
     <div class="d-flex justify-center mt-8">
         <MudPaper Width="300px">
