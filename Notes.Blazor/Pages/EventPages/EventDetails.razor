@@ -32,8 +32,7 @@ else if (!string.IsNullOrEmpty(ErrorMessage))
 }
 else
 {
-    <MudTextField DebounceInterval="500"
-        OnDebounceIntervalElapsed="ChangeEventName"
+    <MudTextField
         @bind-Value="@Event.Name"
         T="string"
         Variant="Variant.Outlined" />
@@ -55,8 +54,7 @@ else
             @bind-Date="@EndDateNullable" />
     </div>
 
-    <MudTextField DebounceInterval="500"
-        OnDebounceIntervalElapsed="ChangeEventContent"
+    <MudTextField
         @bind-Value="@Event.Description"
         Text="@Event.Description"
         T="string"
@@ -67,11 +65,11 @@ else
 <div class="d-flex justify-center mt-8">
     <div class="col">
         <MudFab Class="align-self-end"
-        StartIcon="@Icons.Material.Filled.Save"
-        Size="Size.Medium"
-        Color="Color.Primary"
-        Label="Save"
-        OnClick="SaveAndGoToEventPage">
+                StartIcon="@Icons.Material.Filled.Save"
+                Size="Size.Medium"
+                Color="Color.Primary"
+                Label="Save"
+                OnClick="SaveAndGoToEventPage">
         </MudFab>
     </div>
 </div>

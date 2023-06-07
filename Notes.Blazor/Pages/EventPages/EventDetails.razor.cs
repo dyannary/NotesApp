@@ -2,11 +2,14 @@
 using Microsoft.AspNetCore.JsonPatch;
 using MudBlazor;
 using Newtonsoft.Json;
+using Notes.Blazor.Services.Implementations;
 using Notes.Blazor.Services.Interfaces;
 using Notes.DataTransferObjects.Events;
 using Notes.DataTransferObjects.Notes;
 using System.ComponentModel;
 using System.Text;
+using Notes.Blazor.Memento;
+using System.Xml.Linq;
 
 namespace Notes.Blazor.Pages.EventPages
 {
@@ -20,18 +23,26 @@ namespace Notes.Blazor.Pages.EventPages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        public EventDto? Event { get; set; }
+        [Inject]
+        public DateStateService dateStateService { get; set; }
+
+        [Inject]
+        public IDialogService DialogService { get; set; }
+
+        public EventOriginator? Event { get; set; }
+
+        public IEventMemento EventMemento { get; set; }
 
         private DateTime? StartDateNullable
         {
             get => Event.StartDate;
-            set => Event.StartDate = value ?? DateTime.MinValue; // Set a default value if null is assigned
+            set => Event.StartDate = value ?? DateTime.MinValue; 
         }
 
         private DateTime? EndDateNullable
         {
             get => Event.EndDate;
-            set => Event.EndDate = value ?? DateTime.MinValue; // Set a default value if null is assigned
+            set => Event.EndDate = value ?? DateTime.MinValue;
         }
 
         public string ErrorMessage { get; set; } = string.Empty;
@@ -40,7 +51,22 @@ namespace Notes.Blazor.Pages.EventPages
         {
             try
             {
-                Event = await EventService.GetEventByIdAsync(Id);
+                var @event = await EventService.GetEventByIdAsync(Id);
+
+                if (@event != null)
+                {
+                    Event = new EventOriginator
+                    {
+                        Id = @event.Id,
+                        Name = @event.Name,
+                        Description = @event.Description,
+                        StartDate = @event.StartDate,
+                        EndDate = @event.EndDate,
+                        CreatedDate = @event.CreatedDate
+                    };
+                }
+
+                SaveMemento();
             }
             catch (Exception e)
             {
@@ -52,18 +78,9 @@ namespace Notes.Blazor.Pages.EventPages
         {
             try
             {
-                AddEditEventDto addEditEventDto = new AddEditEventDto()
-                { 
-                    Id = Event.Id,
-                    Name = Event.Name,
-                    StartDate = StartDateNullable.Value,
-                    EndDate = EndDateNullable.Value,
-                    Description = Event.Description,
-                    CreatedDate = Event.CreatedDate,
-                    AllDay = Event.AllDay
-                };
+                await SaveEventToDb();
 
-                await EventService.UpdateEventAsync(addEditEventDto);
+                NavigationManager.NavigateTo($"events");
             }
             catch (Exception e)
             {
@@ -71,19 +88,51 @@ namespace Notes.Blazor.Pages.EventPages
             }
         }
 
-        public async Task ChangeEventName()
+        private async Task SaveEventToDb()
         {
+            var addEditEventDto = new AddEditEventDto()
+            {
+                Id = Event.Id,
+                Name = Event.Name,
+                StartDate = StartDateNullable.Value,
+                EndDate = EndDateNullable.Value,
+                Description = Event.Description,
+                CreatedDate = Event.CreatedDate,
+                AllDay = Event.AllDay
+            };
 
+            await EventService.UpdateEventAsync(addEditEventDto);
         }
 
-        public async Task ChangeEventContent()
+        public async Task Cancel()
         {
+            var options = new DialogOptions { CloseOnEscapeKey = true };
+            var result = await DialogService.Show<AlertDialog>("Discard changes ?", options).Result;
 
+            if (!result.Cancelled)
+            {
+                Undo();
+
+                await SaveEventToDb();
+
+                NavigationManager.NavigateTo($"events");
+            }
         }
 
-        private void GoToNotePage()
+        private async Task GoToNotePage()
         {
+            await SaveEventToDb();
             NavigationManager.NavigateTo("events");
+        }
+
+        private void Undo()
+        {
+            Event.Restore(EventMemento);
+        }
+
+        private void SaveMemento()
+        {
+            EventMemento = Event.Save();
         }
     }
 }
