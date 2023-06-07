@@ -1,12 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
+using Notes.Blazor.Observer;
 using Notes.Blazor.Services.Implementations;
 using Notes.Blazor.Services.Interfaces;
 using Notes.DataTransferObjects.Events;
 using Notes.DataTransferObjects.Notes;
+using System;
+using System.Diagnostics.Tracing;
 
 namespace Notes.Blazor.Pages.EventPages
 {
-    public partial class EventsPage
+    //Concrete Observer
+    public partial class EventsPage : IEventScheduledObserver
     {
         [Inject]
         public IEventService EventService { get; set; }
@@ -14,16 +19,34 @@ namespace Notes.Blazor.Pages.EventPages
         public IEnumerable<EventDto>? Events;
         [Inject]
         public NavigationManager NavigationManager { get; set; }
+
+        [Inject]
+        public DateStateService dateStateService { get; set; }
+
+        [Inject] private IDialogService DialogService { get; set; }
+
+        public ISnackbar Snackbar { get; set; }
+        //{
+        //    get => Snackbar;
+        //    set
+        //    {
+        //        Snackbar = value;
+        //        eventCalendar?.Attach(this); // Attach the observer when the Snackbar is injected
+        //    }
+        //}
+
         public string ErrorMessage { get; set; } = string.Empty;
 
-        DateTime selectedDate = DateTime.Today;
-
         public bool ShowAllEvents = false;
+
+        private EventCalendar eventCalendar; // Concrete subject
 
         protected override async Task OnInitializedAsync()
         {
             try
             {
+                eventCalendar = new EventCalendar();
+
                 Events = await EventService.GetEventsAsync();
             }
             catch (Exception e)
@@ -41,11 +64,17 @@ namespace Notes.Blazor.Pages.EventPages
         {
             NavigationManager.NavigateTo($"eventDetails/{id}");
         }
+        private void EventDetailsReadOnly(int id)
+        {
+            NavigationManager.NavigateTo($"eventDetailsReadOnly/{id}");
+        }
 
         public IEnumerable<EventDto>? FilteredEvents()
         {
             if (ShowAllEvents)
                 return Events;
+
+            var selectedDate = dateStateService.SelectedDate;
 
             var result = Events.Where(e =>
                    e.StartDate.Date <= selectedDate &&
@@ -55,15 +84,43 @@ namespace Notes.Blazor.Pages.EventPages
             return result;
         }
 
-        private async Task HandleDataChanged(DateTime? data)
+        public void OnDateSelectedChanged(DateTime? date)
         {
-            selectedDate = data.Value;
-            await InvokeAsync(StateHasChanged); 
+            if (date != null) dateStateService.SelectedDate = date.Value;
+            StateHasChanged();
         }
 
         public void AllEvents()
         {
             ShowAllEvents = true;
+        }
+
+        public void AddSnackbar()
+        {
+        }
+
+        public void AddCloseAfterNavSnackbar()
+        {
+            Snackbar.Add("Will close after navigation.", Severity.Normal, (options) =>
+            {
+                options.CloseAfterNavigation = true;
+            });
+        }
+
+        public void Update(EventDto myEvent)
+        {
+            //string state = "Message box hasn't been opened yet";
+            //Snackbar.Add($"Event '{myEvent.Name}' is starting in one day!", Severity.Info);
+            //bool? result = await DialogService.ShowMessageBox(
+            //    "Warning",
+            //    "Deleting can not be undone!",
+            //    yesText: "Delete!", cancelText: "Cancel");
+            //state = result == null ? "Canceled" : "Deleted!";
+            // StateHasChanged();
+
+            Snackbar.Add("Remains open after navigation.", Severity.Normal);
+
+            StateHasChanged();
         }
     }
 }

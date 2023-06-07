@@ -7,18 +7,25 @@ public class TaskAdapter : ITypeConverter<AddEditTaskDto, Domain.Task>, ITypeCon
 {
     public Domain.Task Convert(AddEditTaskDto source, Domain.Task destination, ResolutionContext context)
     {
-        var task = new Domain.Task
-        {
-            Id = source.Id,
-            Title = source.Title,
-            Content = source.Content,
-            Priority = source.Priority,
-            Deadline = source.Deadline,
-            CreatedDate = source.CreatedDate,
-            IsCompleted = source.IsCompleted
-        };
+        destination.Id = source.Id;
+        destination.Title = source.Title;
+        destination.Content = source.Content;
+        destination.Priority = source.Priority;
+        destination.Deadline = source.Deadline;
+        destination.CreatedDate = source.CreatedDate;
+        destination.IsCompleted = source.IsCompleted;
+        //var task = new Domain.Task
+        //{
+        //    Id = source.Id,
+        //    Title = source.Title,
+        //    Content = source.Content,
+        //    Priority = source.Priority,
+        //    Deadline = source.Deadline,
+        //    CreatedDate = source.CreatedDate,
+        //    IsCompleted = source.IsCompleted
+        //};
 
-        return task;
+        return destination;
     }
 
     public TaskDto Convert(Domain.Task source, TaskDto destination, ResolutionContext context)

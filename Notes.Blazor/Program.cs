@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
 using Notes.Blazor;
+using Notes.Blazor.Memento;
+using Notes.Blazor.Observer;
+using Notes.Blazor.Pages.EventPages;
 using Notes.Blazor.Services.Implementations;
 using Notes.Blazor.Services.Interfaces;
 
@@ -18,10 +21,11 @@ builder.Services.AddScoped(sp => new HttpClient
 });
 builder.Services.AddMudServices();
 
-
 builder.Services.AddScoped<INoteService, NoteService>();
 builder.Services.AddScoped<INoteTagService, NoteTagService>();
 builder.Services.AddScoped<IEventService, EventService>();
 builder.Services.AddScoped<ITaskService, TaskService>();
+
+builder.Services.AddSingleton<DateStateService>();
 
 await builder.Build().RunAsync();

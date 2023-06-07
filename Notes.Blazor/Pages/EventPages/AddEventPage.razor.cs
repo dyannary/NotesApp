@@ -4,6 +4,7 @@ using MudBlazor;
 using Notes.Blazor.Services.Interfaces;
 using Notes.DataTransferObjects.Notes;
 using Notes.DataTransferObjects.Events;
+using Notes.Blazor.Services.Implementations;
 
 namespace Notes.Blazor.Pages.EventPages
 {
@@ -18,8 +19,14 @@ namespace Notes.Blazor.Pages.EventPages
         [Inject]
         ISnackbar Snackbar { get; set; }
 
+        [Inject]
+        public DateStateService dateStateService { get; set; }
+
+        [Inject]
+        public IDialogService DialogService { get; set; }
+
         public string EventName { get; set; } = "Name";
-        public DateTime? StartDate { get; set; } 
+        
         public DateTime? EndDate { get; set; }
         public string EventDescription { get; set; } = "Description";
         public bool AllDay { get; set; }    
@@ -33,7 +40,7 @@ namespace Notes.Blazor.Pages.EventPages
                 {
                     Name = EventName,
                     Description = EventDescription,
-                    StartDate = (DateTime)StartDate,
+                    StartDate = (DateTime)dateStateService.SelectedDate,
                     EndDate = (DateTime)EndDate,
                     AllDay = AllDay
                 });
@@ -50,7 +57,7 @@ namespace Notes.Blazor.Pages.EventPages
         }
 
         public void Cancel()
-        {
+        { 
             NavigationManager.NavigateTo($"events");
         }
     }
