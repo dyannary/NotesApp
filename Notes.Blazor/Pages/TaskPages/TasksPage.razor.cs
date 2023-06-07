@@ -1,14 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using MudBlazor.Extensions;
 using MudBlazor.Utilities;
 using Notes.Blazor.Services.Interfaces;
 using Notes.DataTransferObjects.Enums;
 using Notes.DataTransferObjects.Tasks;
-using System.Drawing;
-using Microsoft.AspNetCore.Components.Web;
 using Notes.Blazor.Decorator;
-using static MudBlazor.Defaults.Classes;
 using Color = MudBlazor.Color;
 
 namespace Notes.Blazor.Pages.TaskPages;
