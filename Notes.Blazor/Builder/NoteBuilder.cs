@@ -3,7 +3,7 @@ using Notes.DataTransferObjects.NoteTags;
 
 namespace Notes.Blazor.Builder;
 
-public class NoteBuilder
+public class NoteBuilder : INoteBuilder
 {
     private AddEditNoteDto _note = new();
 

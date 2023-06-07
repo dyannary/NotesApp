@@ -8,18 +8,15 @@ public class EventAdapter : ITypeConverter<AddEditEventDto, Event>, ITypeConvert
 {
     public Event Convert(AddEditEventDto source, Event destination, ResolutionContext context)
     {
-        var @event = new Event
-        {
-            Id = source.Id,
-            Name = source.Name,
-            Description = source.Description,
-            StartDate = source.StartDate,
-            EndDate = source.EndDate,
-            CreatedDate = source.CreatedDate,
-            AllDay = source.AllDay
-        };
+        destination.Id = source.Id;
+        destination.Name = source.Name;
+        destination.Description = source.Description;
+        destination.StartDate = source.StartDate;
+        destination.EndDate = source.EndDate;
+        destination.CreatedDate = source.CreatedDate;
+        destination.AllDay = source.AllDay;
 
-        return @event;
+        return destination;
     }
 
     public EventDto Convert(Event source, EventDto destination, ResolutionContext context)

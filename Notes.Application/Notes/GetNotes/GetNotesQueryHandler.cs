@@ -19,7 +19,9 @@ public class GetNotesQueryHandler : IQueryHandler<GetNotesQuery, IEnumerable<Not
 
     public async Task<IEnumerable<NoteDto>> Handle(GetNotesQuery request, CancellationToken cancellationToken)
     {
-        var notes = await _notesDbContext.Notes.ToListAsync(cancellationToken: cancellationToken);
+        var filteredNotes = GetAndFilterNotes.Filter(_notesDbContext, request.Title);
+
+        var notes = await filteredNotes.ToListAsync(cancellationToken: cancellationToken);
 
         return _mapper.Map<List<NoteDto>>(notes);
     }
