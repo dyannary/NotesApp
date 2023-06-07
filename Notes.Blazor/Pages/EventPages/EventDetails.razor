@@ -1,4 +1,4 @@
-﻿@using MudBlazor.Components
+@using MudBlazor.Components
 
 @page "/eventDetails/{Id:int}"
 
@@ -70,6 +70,15 @@ else
                 Color="Color.Primary"
                 Label="Save"
                 OnClick="SaveAndGoToEventPage">
+        </MudFab>
+    </div>
+    <div class="col">
+        <MudFab Class="align-self-end ml-5"
+                StartIcon="@Icons.Material.Filled.Cancel"
+                Size="Size.Medium"
+                Color="Color.Error"
+                Label="Cancel"
+                OnClick="Cancel">
         </MudFab>
     </div>
 </div>
