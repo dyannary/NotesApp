@@ -1,0 +1,118 @@
+﻿@page "/tasks"
+
+@using Notes.DataTransferObjects.Enums
+
+<PageTitle>Tasks</PageTitle>
+
+@if (!StartAddTask)
+{
+    <div class="d-flex justify-center mb-8">
+        <MudFab Class="align-self-end mud-theme-primary"
+                StartIcon="@Icons.Material.Filled.Add"
+                Size="Size.Medium"
+                Label="Add task"
+                OnClick="NewTask">
+        </MudFab>
+    </div>
+}
+else
+{
+    <MudPaper Elevation="3" Class="pa-3 mb-4">
+        <MudGrid>
+            <MudItem xs="12">
+                <MudTextField @bind-Value="NewTaskDto.Title"
+                              Label="Task title"
+                              Variant="Variant.Outlined"
+                              Margin="Margin.Dense">
+                </MudTextField>
+                
+            </MudItem>
+            <MudItem xs="12" lg="6" Class="d-flex">
+                <MudText Class="align-self-center">Priority: </MudText>
+                <MudRadioGroup @bind-SelectedOption="@NewTaskDto.Priority" Class="align-self-center">
+                    <MudRadio Option="@Priority.None">None</MudRadio>
+                    <MudRadio Option="@Priority.Low" Color="Color.Success">Low</MudRadio>
+                    <MudRadio Option="@Priority.Medium" Color="Color.Secondary">Medium</MudRadio>
+                    <MudRadio Option="@Priority.High" Color="Color.Primary">High</MudRadio>
+                </MudRadioGroup>
+            </MudItem>
+            <MudItem xs="12" lg="6" Class="d-flex">
+                <MudSwitch T="bool" Color="Color.Primary" CheckedChanged="@((b) => AddDeadLine = b)">
+                    Add deadline
+                </MudSwitch>
+                
+                @if (AddDeadLine)
+                {
+                    <MudDatePicker @bind-Date="@NewTaskDto.Deadline"
+                                   Style="max-width: 150px"
+                                   Label="Deadline"
+                                   Variant="Variant.Outlined"
+                                   PickerVariant="PickerVariant.Dialog"
+                                   Margin="Margin.Dense"/>
+                }
+            </MudItem >
+            <MudItem xs="12"  Class="d-flex justify-center">
+                <MudFab Class="align-self-center mud-theme-primary"
+                        Color="Color.Primary"
+                        StartIcon="@Icons.Material.Filled.Save"
+                        Size="Size.Small"
+                        Label="Save"
+                        OnClick="AddTask">
+                </MudFab>
+
+                <MudFab Class="align-self-center ml-3"
+                        Color="Color.Error"
+                        StartIcon="@Icons.Material.Filled.Save"
+                        Size="Size.Small"
+                        Label="Cancel"
+                        OnClick="CancelAddTask">
+                </MudFab>
+            </MudItem>
+        </MudGrid>
+    </MudPaper>
+}
+
+
+@if (!Tasks.GetTasks().Any())
+{
+    <MudAlert Severity="Severity.Info" Class="mt-5"
+              ContentAlignment="HorizontalAlignment.Center">
+        No tasks!
+    </MudAlert>
+}
+else
+{
+    <MudStack>
+
+        <MudPaper Elevation="2" Outlined="true" Class="" Style="@($"background:{Colors.Grey.Darken3}")">
+            <MudToolBar>
+                <MudCheckBox @bind-Checked="HighPriority" @onclick="FilterByHighPriority" Color="Color.Error"/>
+                <MudCheckBox @bind-Checked="MidPriority" @onclick="FilterByPriority" Color="Color.Warning" />
+                <MudCheckBox @bind-Checked="LowPriority" @onclick="FilterByPriority" Color="Color.Success" />
+                <MudCheckBox @bind-Checked="NonePriority" @onclick="FilterByPriority" Color="Color.Default" />
+                <MudSpacer />
+                <MudField Label="By priority" Variant="Variant.Outlined" InnerPadding="false" Class="d-inline-flex justify-space-around">
+                    <div class="d-inline-flex justify-space-around">
+                        <MudCheckBox @bind-Checked="NonePriority" @onclick="FilterByPriority" Color="Color.Default"/>
+                        <MudSwitch @bind-Checked="@ByPriority" Disabled="NonePriority" />
+                    </div>
+                </MudField>
+                
+                <MudSwitch @bind-Checked="@ByTimeLeft">By time left</MudSwitch>
+                <MudSwitch @bind-Checked="@OnlyNotCompleted">Not completed</MudSwitch>
+
+                <MudIconButton Icon="@Icons.Material.Filled.ResetTv" aria-label="delete"></MudIconButton>
+            </MudToolBar>
+        </MudPaper>
+
+        @foreach (var taskItem in Tasks.GetTasks())
+        {
+            <MudPaper Elevation="3" Class="d-flex">
+                <MudCheckBox @bind-Checked="@taskItem.IsCompleted" Color="@GetColorEnum(taskItem.Priority)" Size="Size.Large" Dense="true"/>
+                <MudText Class="align-self-center ml-3">@taskItem.Title</MudText>
+                <MudText Class="align-self-center ml-auto mr-3">@DaysLeft(taskItem.Deadline)</MudText>
+                <MudAvatar Class="mr-3 align-self-center" Color="@GetColorEnum(taskItem.Priority)" Size="Size.Small"/>
+            </MudPaper>
+        }
+    </MudStack>
+}
