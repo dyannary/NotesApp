@@ -19,13 +19,8 @@ namespace Notes.Blazor.Pages.EventPages
         public int Id { get; set; }
         [Inject]
         public IEventService EventService { get; set; }
-
         [Inject]
         public NavigationManager NavigationManager { get; set; }
-
-        [Inject]
-        public DateStateService dateStateService { get; set; }
-
         [Inject]
         public IDialogService DialogService { get; set; }
 
