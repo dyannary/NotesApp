@@ -5,9 +5,9 @@ namespace Notes.Application.Tasks.EditTask;
 
 public class EditTaskCommand : IRequest<int?>
 {
-    public AddEditTaskDto Data { get; set; }
+    public TaskDto Data { get; set; }
 
-    public EditTaskCommand(AddEditTaskDto data)
+    public EditTaskCommand(TaskDto data)
     {
         Data = data;
     }

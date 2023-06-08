@@ -5,5 +5,4 @@ namespace Notes.Application.Notes.GetNotes;
 
 public record GetNotesQuery : IQuery<IEnumerable<NoteDto>>
 {
-    public string Title { get; set; }
 }

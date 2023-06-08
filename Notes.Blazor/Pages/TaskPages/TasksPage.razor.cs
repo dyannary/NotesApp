@@ -33,7 +33,9 @@ public partial class TasksPage
     public bool ByPriority { get; set; } = false;
     public bool ByTimeLeft { get; set; } = false;
 
-    public List<TaskDto> DecoratedTasks { get; set; }
+    public TaskList DecoratedTasks { get; set; }
+        
+    public Priority SelectedPriority { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -46,12 +48,9 @@ public partial class TasksPage
         {
             Tasks = await TaskService.GetTasksAsync();
 
-            /*DecoratedTasks= new List<TaskDto>();
+            DecoratedTasks = new TaskList();
+            DecoratedTasks.InsertNewList(Tasks.GetTasks());
 
-            foreach (var task in Tasks.GetTasks())
-            {
-                DecoratedTasks.Add(task.Clone());
-            }*/
         }
         catch (Exception e)
         {
@@ -144,13 +143,56 @@ public partial class TasksPage
         return Color.Default;
     }
 
-    private void FilterByPriority()
-    {   
-        Tasks = new TaskListOrderByPriority(Tasks);
+    public void ResetFilters()
+    {
+        //SelectedPriority = null;
+
+        DecoratedTasks.InsertNewList(Tasks.GetTasks());
+    }
+        
+    private void FilterByPriority(Priority priority)
+    {
+        /*if (SelectedPriority == null)
+            return;*/
+        DecoratedTasks.InsertNewList(new TaskListFilterByPriority(Tasks, priority).GetTasks());
     }
 
     private void FilterByHighPriority() 
     {
-        Tasks = new TaskListFilterByHighPriority(Tasks);
+        //Tasks = new TaskListFilterByHighPriority(Tasks);
+    }
+
+    List<TaskDto> GetFilteredTasks()
+    {
+        if (OnlyNotCompleted)
+            return DecoratedTasks.GetTasks().Where(t => !t.IsCompleted).ToList();
+
+        return DecoratedTasks.GetTasks();
+    }
+
+
+    private async Task CompleteTask(TaskDto task)
+    {
+        try
+        {
+            task.IsCompleted = !task.IsCompleted;
+
+            await TaskService.UpdateTaskAsync(task);
+
+            await GetTasks();
+        }
+        catch (Exception e)
+        {
+            ErrorMessage = e.Message;
+            Snackbar.Clear();
+            Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomStart;
+            Snackbar.Add(ErrorMessage, Severity.Error);
+        }
+    }
+
+    private async Task DeleteTask(int id)
+    {
+        await TaskService.DeleteTaskAsync(id);
+        await GetTasks();
     }
 }   

@@ -14,7 +14,7 @@ public class DeleteTaskCommandHandler : IRequestHandler<DeleteTaskCommand, Unit?
     }
     public async Task<Unit?> Handle(DeleteTaskCommand request, CancellationToken cancellationToken)
     {
-        var taskToDelete = await _notesDbContext.Tasks.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var taskToDelete = await _notesDbContext.Tasks.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken: cancellationToken);
 
         if (taskToDelete == null)
         {
@@ -23,7 +23,7 @@ public class DeleteTaskCommandHandler : IRequestHandler<DeleteTaskCommand, Unit?
 
         _notesDbContext.Tasks.Remove(taskToDelete);
 
-        await _notesDbContext.SaveChangesAsync();
+        await _notesDbContext.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;
     }
