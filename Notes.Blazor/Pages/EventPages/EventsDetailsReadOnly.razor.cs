@@ -12,7 +12,7 @@ namespace Notes.Blazor.Pages.EventPages
         [Parameter]
         public int Id { get; set; }
         [Inject]
-        public IEventService EventService { get; set; }
+        public IEventRepository EventRepository { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -45,7 +45,7 @@ namespace Notes.Blazor.Pages.EventPages
         {
             try
             {
-                var @event = await EventService.GetEventByIdAsync(Id);
+                var @event = await EventRepository.GetEventByIdAsync(Id);
 
                 if (@event != null)
                 {

@@ -3,7 +3,7 @@ using Notes.DataTransferObjects.Notes;
 
 namespace Notes.Blazor.Services.Interfaces
 {
-    public interface IEventService
+    public interface IEventRepository   
     {
         Task<IEnumerable<EventDto>> GetEventsAsync();
         Task<EventDto> GetEventByIdAsync(int id);

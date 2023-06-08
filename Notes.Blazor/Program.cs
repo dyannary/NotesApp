@@ -18,10 +18,10 @@ builder.Services.AddScoped(sp => new HttpClient
 });
 builder.Services.AddMudServices();
 
-builder.Services.AddScoped<INoteService, NoteService>();
-builder.Services.AddScoped<INoteTagService, NoteTagService>();
-builder.Services.AddScoped<IEventService, EventService>();
-builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped<INoteRepository, NoteRepository>();
+builder.Services.AddScoped<INoteTagRepository, NoteTagRepository>();
+builder.Services.AddScoped<IEventRepository, EventRepository>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddSingleton<DateStateService>();
 
 await builder.Build().RunAsync();

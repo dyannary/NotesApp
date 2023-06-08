@@ -6,11 +6,11 @@ using Notes.Blazor.Decorator;
 
 namespace Notes.Blazor.Services.Implementations;
 
-public class TaskService: ITaskService
+public class TaskRepository: ITaskRepository
 {
     private readonly HttpClient _http;
 
-    public TaskService(HttpClient http)
+    public TaskRepository(HttpClient http)
     {
         _http = http;
     }

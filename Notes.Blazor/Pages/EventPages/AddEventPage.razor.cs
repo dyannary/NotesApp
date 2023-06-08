@@ -11,7 +11,7 @@ namespace Notes.Blazor.Pages.EventPages
     public partial class AddEventPage
     {
         [Inject]
-        public IEventService EventService { get; set; }
+        public IEventRepository EventRepository { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -32,7 +32,7 @@ namespace Notes.Blazor.Pages.EventPages
         {
             try
             {
-                int id = await EventService.AddEventAsync(
+                int id = await EventRepository.AddEventAsync(
                 new AddEditEventDto()
                 {
                     Name = EventName,

@@ -2,7 +2,7 @@
 
 namespace Notes.Blazor.Services.Interfaces;
 
-public interface INoteTagService    
+public interface INoteTagRepository    
 {
     Task<IEnumerable<NoteTagDto>> GetNoteTagsAsync(int noteId);
     Task<int> AddNoteTagAsync(NoteTagDto noteTag);
