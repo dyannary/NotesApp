@@ -83,6 +83,8 @@ public partial class TasksPage
         {
             await TaskService.AddTaskAsync(NewTaskDto);
             Tasks.Add(NewTaskDto);
+
+            await GetTasks();
             StartAddTask = false;
         }
         catch (Exception e)

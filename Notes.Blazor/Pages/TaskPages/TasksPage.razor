@@ -95,6 +95,7 @@ else
                     <MudButton @onclick="() => FilterByPriority(Priority.Low)"    Color="Color.Success">Low</MudButton>
                     <MudButton @onclick="() => FilterByPriority(Priority.None)"   Color="Color.Default">None</MudButton>
                 </MudButtonGroup>
+                <MudIconButton Icon="@Icons.Material.Filled.ChangeCircle" OnClick="ResetFilters"></MudIconButton>
                 @*<MudRadioGroup @bind-SelectedOption="@SelectedPriority">
                     <MudRadio Option="@Priority.High" @onclick="FilterByPriority" Color="Color.Error">High</MudRadio>
                     <MudRadio Option="@Priority.Medium" @onclick="FilterByPriority"     Color="Color.Warning">Medium</MudRadio>
@@ -111,8 +112,6 @@ else
                 
                 @*<MudSwitch @bind-Checked="@ByTimeLeft">By time left</MudSwitch>*@
                 <MudSwitch @bind-Checked="@OnlyNotCompleted">Not completed</MudSwitch>
-
-                <MudIconButton Icon="@Icons.Material.Filled.CircleNotifications" OnClick="ResetFilters"></MudIconButton>
             </MudToolBar>
         </MudPaper>
 
