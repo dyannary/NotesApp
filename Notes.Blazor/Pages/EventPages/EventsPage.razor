@@ -17,7 +17,7 @@
         <MudPaper Elevation="4">
             <MudHidden Breakpoint="@Breakpoint.Xxl" Class="mb-3">
                 <MudDatePicker PickerVariant="PickerVariant.Static" Orientation="Orientation.Landscape" Date="@dateStateService.SelectedDate"
-                               DateChanged="OnDateSelectedChanged" Class="d-flex justify-center">
+                               DateChanged="HandleDataChanged" Class="d-flex justify-center">
                 <PickerActions>
                     <MudButton Class="mr-auto align-self-start" OnClick="AllEvents">All events</MudButton>
                 </PickerActions>
@@ -33,7 +33,7 @@ else
             StartIcon="@Icons.Material.Filled.CalendarMonth"
             Size="Size.Small"
             Label="Pick a date"
-                OnClick="AddSnackbar">
+                OnClick="() => {ShowAllEvents = false;}">
         </MudFab>
     </div>
 }

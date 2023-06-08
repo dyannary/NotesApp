@@ -30,7 +30,10 @@ else if (!string.IsNullOrEmpty(ErrorMessage))
 }
 else
 {
-    <MudField > @Event.Name </MudField>
+    <MudField T="string"
+              Lines="10"
+              Variant="Variant.Outlined"> @Event.Name
+    </MudField>
 
     <div class="d-flex mt-2">
         <MudField Label="Start date"
@@ -47,8 +50,12 @@ else
             @EndDateNullable
         </MudField>
     </div>
-    <MudField > @Event.Description </MudField>
+    <MudField T="string"
+              Lines="10"
+              Variant="Variant.Outlined"> @Event.Description
+    </MudField>
 }
+
 
 <div class="d-flex justify-center mt-8">
     <div class="col">

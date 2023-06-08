@@ -11,7 +11,7 @@ using System.Diagnostics.Tracing;
 namespace Notes.Blazor.Pages.EventPages
 {
     //Concrete Observer
-    public partial class EventsPage : IEventScheduledObserver
+    public partial class EventsPage
     {
         [Inject]
         public IEventService EventService { get; set; }
@@ -22,31 +22,15 @@ namespace Notes.Blazor.Pages.EventPages
 
         [Inject]
         public DateStateService dateStateService { get; set; }
-
-        [Inject] private IDialogService DialogService { get; set; }
-
-        public ISnackbar Snackbar { get; set; }
-        //{
-        //    get => Snackbar;
-        //    set
-        //    {
-        //        Snackbar = value;
-        //        eventCalendar?.Attach(this); // Attach the observer when the Snackbar is injected
-        //    }
-        //}
-
+        
         public string ErrorMessage { get; set; } = string.Empty;
 
         public bool ShowAllEvents = false;
-
-        private EventCalendar eventCalendar; // Concrete subject
 
         protected override async Task OnInitializedAsync()
         {
             try
             {
-                eventCalendar = new EventCalendar();
-
                 Events = await EventService.GetEventsAsync();
             }
             catch (Exception e)
@@ -84,7 +68,7 @@ namespace Notes.Blazor.Pages.EventPages
             return result;
         }
 
-        public void OnDateSelectedChanged(DateTime? date)
+        public void HandleDataChanged(DateTime? date)
         {
             if (date != null) dateStateService.SelectedDate = date.Value;
             StateHasChanged();
@@ -93,34 +77,6 @@ namespace Notes.Blazor.Pages.EventPages
         public void AllEvents()
         {
             ShowAllEvents = true;
-        }
-
-        public void AddSnackbar()
-        {
-        }
-
-        public void AddCloseAfterNavSnackbar()
-        {
-            Snackbar.Add("Will close after navigation.", Severity.Normal, (options) =>
-            {
-                options.CloseAfterNavigation = true;
-            });
-        }
-
-        public void Update(EventDto myEvent)
-        {
-            //string state = "Message box hasn't been opened yet";
-            //Snackbar.Add($"Event '{myEvent.Name}' is starting in one day!", Severity.Info);
-            //bool? result = await DialogService.ShowMessageBox(
-            //    "Warning",
-            //    "Deleting can not be undone!",
-            //    yesText: "Delete!", cancelText: "Cancel");
-            //state = result == null ? "Canceled" : "Deleted!";
-            // StateHasChanged();
-
-            Snackbar.Add("Remains open after navigation.", Severity.Normal);
-
-            StateHasChanged();
         }
     }
 }
