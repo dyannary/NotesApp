@@ -17,6 +17,11 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Notes.DataTransferObjects\Notes.DataTransferObjects.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Observer\" />
+	  <Folder Include="State\" />
+	</ItemGroup>
 	
 	
 </Project>

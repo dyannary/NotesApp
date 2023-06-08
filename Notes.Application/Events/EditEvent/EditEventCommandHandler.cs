@@ -26,6 +26,7 @@ public class EditEventCommandHandler : IRequestHandler<EditEventCommand, int?>
         }
 
         _mapper.Map(request.Data, editEvent);
+
         await _noteDbContext.SaveChangesAsync(cancellationToken);
 
         return editEvent.Id;

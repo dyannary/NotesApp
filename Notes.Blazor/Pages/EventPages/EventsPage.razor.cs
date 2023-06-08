@@ -2,7 +2,6 @@
 using Notes.Blazor.Services.Implementations;
 using Notes.Blazor.Services.Interfaces;
 using Notes.DataTransferObjects.Events;
-using Notes.DataTransferObjects.Notes;
 
 namespace Notes.Blazor.Pages.EventPages
 {
@@ -14,9 +13,11 @@ namespace Notes.Blazor.Pages.EventPages
         public IEnumerable<EventDto>? Events;
         [Inject]
         public NavigationManager NavigationManager { get; set; }
-        public string ErrorMessage { get; set; } = string.Empty;
 
-        DateTime selectedDate = DateTime.Today;
+        [Inject]
+        public DateStateService dateStateService { get; set; }
+        
+        public string ErrorMessage { get; set; } = string.Empty;
 
         public bool ShowAllEvents = false;
 
@@ -41,11 +42,17 @@ namespace Notes.Blazor.Pages.EventPages
         {
             NavigationManager.NavigateTo($"eventDetails/{id}");
         }
+        private void EventDetailsReadOnly(int id)
+        {
+            NavigationManager.NavigateTo($"eventDetailsReadOnly/{id}");
+        }
 
         public IEnumerable<EventDto>? FilteredEvents()
         {
             if (ShowAllEvents)
                 return Events;
+
+            var selectedDate = dateStateService.SelectedDate;
 
             var result = Events.Where(e =>
                    e.StartDate.Date <= selectedDate &&
@@ -55,10 +62,10 @@ namespace Notes.Blazor.Pages.EventPages
             return result;
         }
 
-        private async Task HandleDataChanged(DateTime? data)
+        public void HandleDataChanged(DateTime? date)
         {
-            selectedDate = data.Value;
-            await InvokeAsync(StateHasChanged); 
+            if (date != null) dateStateService.SelectedDate = date.Value;
+            StateHasChanged();
         }
 
         public void AllEvents()

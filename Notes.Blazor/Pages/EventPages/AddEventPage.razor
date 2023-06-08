@@ -9,7 +9,7 @@
 <div class="d-flex mt-2">
     <MudDatePicker PickerVariant="PickerVariant.Dialog" Label="Start date" Class="start flex-1 mr-5" Elevation="0"
                    Color="Color.Primary"
-                   @bind-Date="StartDate"/>
+                   @bind-Date="@dateStateService.SelectedDate"/>
 
     <MudDatePicker PickerVariant="PickerVariant.Dialog" Label="End date" Class="end flex-1 ml-5" Elevation="0"
                    Color="Color.Primary" 

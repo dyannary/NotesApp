@@ -16,8 +16,8 @@
     <div class="d-flex justify-center mb-8">
         <MudPaper Elevation="4">
             <MudHidden Breakpoint="@Breakpoint.Xxl" Class="mb-3">
-                <MudDatePicker PickerVariant="PickerVariant.Static" Orientation="Orientation.Landscape" Date="@(selectedDate)"
-                    DateChanged="HandleDataChanged" Class="d-flex justify-center">
+                <MudDatePicker PickerVariant="PickerVariant.Static" Orientation="Orientation.Landscape" Date="@dateStateService.SelectedDate"
+                               DateChanged="HandleDataChanged" Class="d-flex justify-center">
                 <PickerActions>
                     <MudButton Class="mr-auto align-self-start" OnClick="AllEvents">All events</MudButton>
                 </PickerActions>
@@ -33,7 +33,7 @@ else
             StartIcon="@Icons.Material.Filled.CalendarMonth"
             Size="Size.Small"
             Label="Pick a date"
-            OnClick="() => {ShowAllEvents = false;}">
+                OnClick="() => {ShowAllEvents = false;}">
         </MudFab>
     </div>
 }
@@ -48,9 +48,9 @@ else
 else
 {
     <MudStack>
-        @foreach (var myEvent in FilteredEvents())
+        @foreach (var myEvent in FilteredEvents()!)
         {
-            <MudPaper @onclick="() => { EventDetails(myEvent.Id);}"
+            <MudPaper @onclick="() => { EventDetailsReadOnly(myEvent.Id);}"
               Elevation="4"
                       style=" background-color: hsla(0, 0%, 98%, 0.2)">
                 <MudCard>
@@ -60,6 +60,9 @@ else
                                 @myEvent.Name
                             </MudText>
                         </CardHeaderContent>
+                        <CardHeaderActions>
+                            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Default" @onclick="async () => { EventDetails(myEvent.Id);}" />
+                        </CardHeaderActions>
                     </MudCardHeader>
                     <MudCardContent>
                         <MudText>@myEvent.Description</MudText>

@@ -1,0 +1,69 @@
+﻿@page "/eventDetailsReadOnly/{Id:int}"
+
+<PageTitle>Event details</PageTitle>
+
+<div class="d-flex justify-start mb-8">
+    <MudFab Class="align-self-end"
+            StartIcon="@Icons.Material.Filled.ArrowBack"
+            Size="Size.Medium"
+            Color="Color.Dark"
+            Label="All events"
+            OnClick="GoToEventPage">
+    </MudFab>
+</div>
+
+@if (Event is null && string.IsNullOrEmpty(ErrorMessage))
+{
+    <div class="centerScreen"
+         style="
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);">
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+    </div>
+}
+else if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <MudAlert Severity="Severity.Error">@ErrorMessage</MudAlert>
+}
+else
+{
+    <MudField T="string"
+              Lines="10"
+              Variant="Variant.Outlined"> @Event.Name
+    </MudField>
+
+    <div class="d-flex mt-2">
+        <MudField Label="Start date"
+                  Class="start flex-1 mr-5"
+                  Elevation="0"
+                  Color="Color.Primary">
+            @StartDateNullable
+        </MudField>
+        <MudField 
+                  Label="End date"
+                  Class="start flex-1 mr-5"
+                  Elevation="0"
+                  Color="Color.Primary">
+            @EndDateNullable
+        </MudField>
+    </div>
+    <MudField T="string"
+              Lines="10"
+              Variant="Variant.Outlined"> @Event.Description
+    </MudField>
+}
+
+<div class="d-flex justify-center mt-8">
+    <div class="col">
+        <MudFab Class="align-self-end ml-5"
+                StartIcon="@Icons.Material.Filled.Cancel"
+                Size="Size.Medium"
+                Color="Color.Secondary"
+                Label="Go Back"
+                OnClick="Cancel">
+        </MudFab>
+    </div>
+</div>
