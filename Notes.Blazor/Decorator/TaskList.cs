@@ -30,4 +30,10 @@ public class TaskList : ITaskListDecorator
     {
         return _tasks;
     }
+
+    public void InsertNewList(List<TaskDto> tasks)
+    {
+        _tasks.Clear();
+        _tasks.AddRange(tasks);
+    }
 }

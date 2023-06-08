@@ -18,15 +18,20 @@ public class EditTaskCommandHandler : IRequestHandler<EditTaskCommand, int?>
     }
     public async Task<int?> Handle(EditTaskCommand request, CancellationToken cancellationToken)
     {
-        var taskToEdit = await _notesDbContext.Tasks.FirstOrDefaultAsync(x => x.Id == request.Data.Id);
+        var taskToEdit = await _notesDbContext.Tasks.FirstOrDefaultAsync(x => x.Id == request.Data.Id, cancellationToken: cancellationToken);
 
         if (taskToEdit is null)
         {
             return null;
         }
 
-        _mapper.Map(request.Data, taskToEdit);
-        await _notesDbContext.SaveChangesAsync();
+        /*if (string.IsNullOrEmpty(request.Data.Title))
+            taskToEdit.Title = request.Data.Title;
+        if (string.IsNullOrEmpty(request.Data.Content))
+            taskToEdit.Title = request.Data.Content;*/
+        taskToEdit.IsCompleted = request.Data.IsCompleted;
+
+        await _notesDbContext.SaveChangesAsync(cancellationToken);
 
         return taskToEdit.Id;
     }

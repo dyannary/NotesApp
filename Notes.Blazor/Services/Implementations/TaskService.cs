@@ -70,11 +70,39 @@ public class TaskService: ITaskService
 
     public async Task DeleteTaskAsync(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var response = await _http.DeleteAsync($"api/Tasks/{id}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var message = await response.Content.ReadAsStringAsync();
+                throw new Exception(message);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     public async Task UpdateTaskAsync(TaskDto taskToUpdate)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var response = await _http.PatchAsJsonAsync("api/Tasks", taskToUpdate);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var message = await response.Content.ReadAsStringAsync();
+                throw new Exception(message);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }

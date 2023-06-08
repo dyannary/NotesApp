@@ -19,7 +19,7 @@ public class GetNotesQueryHandler : IQueryHandler<GetNotesQuery, IEnumerable<Not
 
     public async Task<IEnumerable<NoteDto>> Handle(GetNotesQuery request, CancellationToken cancellationToken)
     {
-        var filteredNotes = GetAndFilterNotes.Filter(_notesDbContext, request.Title);
+        var filteredNotes = GetAndFilterNotes.Filter(_notesDbContext);
 
         var notes = await filteredNotes.ToListAsync(cancellationToken: cancellationToken);
 

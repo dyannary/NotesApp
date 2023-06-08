@@ -32,8 +32,8 @@ else
                 <MudRadioGroup @bind-SelectedOption="@NewTaskDto.Priority" Class="align-self-center">
                     <MudRadio Option="@Priority.None">None</MudRadio>
                     <MudRadio Option="@Priority.Low" Color="Color.Success">Low</MudRadio>
-                    <MudRadio Option="@Priority.Medium" Color="Color.Secondary">Medium</MudRadio>
-                    <MudRadio Option="@Priority.High" Color="Color.Primary">High</MudRadio>
+                    <MudRadio Option="@Priority.Medium" Color="Color.Warning">Medium</MudRadio>
+                    <MudRadio Option="@Priority.High" Color="Color.Error">High</MudRadio>
                 </MudRadioGroup>
             </MudItem>
             <MudItem xs="12" lg="6" Class="d-flex">
@@ -83,35 +83,46 @@ else
 else
 {
     <MudStack>
-
         <MudPaper Elevation="2" Outlined="true" Class="" Style="@($"background:{Colors.Grey.Darken3}")">
-            <MudToolBar>
-                <MudCheckBox @bind-Checked="HighPriority" @onclick="FilterByHighPriority" Color="Color.Error"/>
-                <MudCheckBox @bind-Checked="MidPriority" @onclick="FilterByPriority" Color="Color.Warning" />
-                <MudCheckBox @bind-Checked="LowPriority" @onclick="FilterByPriority" Color="Color.Success" />
-                <MudCheckBox @bind-Checked="NonePriority" @onclick="FilterByPriority" Color="Color.Default" />
+            <MudToolBar Class="px-0">
+                @*<MudCheckBox @bind-Checked="HighPriority" @onclick="() => FilterByPriority(Priority.High)"   Color="Color.Error" />
+                <MudCheckBox @bind-Checked="MidPriority"  @onclick="() => FilterByPriority(Priority.Medium)" Color="Color.Warning" />
+                <MudCheckBox @bind-Checked="LowPriority"  @onclick="() => FilterByPriority(Priority.Low)"    Color="Color.Success" />
+                <MudCheckBox @bind-Checked="NonePriority" @onclick="() => FilterByPriority(Priority.None)"   Color="Color.Default" />*@
+                <MudButtonGroup Class="ml-2" Color="Color.Primary" Variant="Variant.Outlined" OverrideStyles="false">
+                    <MudButton @onclick="() => FilterByPriority(Priority.High)"   Color="Color.Error">High</MudButton>
+                    <MudButton @onclick="() => FilterByPriority(Priority.Medium)" Color="Color.Warning">Medium</MudButton>
+                    <MudButton @onclick="() => FilterByPriority(Priority.Low)"    Color="Color.Success">Low</MudButton>
+                    <MudButton @onclick="() => FilterByPriority(Priority.None)"   Color="Color.Default">None</MudButton>
+                </MudButtonGroup>
+                @*<MudRadioGroup @bind-SelectedOption="@SelectedPriority">
+                    <MudRadio Option="@Priority.High" @onclick="FilterByPriority" Color="Color.Error">High</MudRadio>
+                    <MudRadio Option="@Priority.Medium" @onclick="FilterByPriority"     Color="Color.Warning">Medium</MudRadio>
+                    <MudRadio Option="@Priority.Low"    @onclick="FilterByPriority"     Color="Color.Success">Low</MudRadio>
+                    <MudRadio Option="@Priority.None"   @onclick="FilterByPriority"     Color="Color.Default">None</MudRadio>
+                </MudRadioGroup>*@
                 <MudSpacer />
-                <MudField Label="By priority" Variant="Variant.Outlined" InnerPadding="false" Class="d-inline-flex justify-space-around">
+                @*<MudField Label="By priority" Variant="Variant.Outlined" InnerPadding="false" Class="d-inline-flex justify-space-around">
                     <div class="d-inline-flex justify-space-around">
                         <MudCheckBox @bind-Checked="NonePriority" @onclick="FilterByPriority" Color="Color.Default"/>
                         <MudSwitch @bind-Checked="@ByPriority" Disabled="NonePriority" />
                     </div>
-                </MudField>
+                </MudField>*@
                 
-                <MudSwitch @bind-Checked="@ByTimeLeft">By time left</MudSwitch>
+                @*<MudSwitch @bind-Checked="@ByTimeLeft">By time left</MudSwitch>*@
                 <MudSwitch @bind-Checked="@OnlyNotCompleted">Not completed</MudSwitch>
 
-                <MudIconButton Icon="@Icons.Material.Filled.ResetTv" aria-label="delete"></MudIconButton>
+                <MudIconButton Icon="@Icons.Material.Filled.CircleNotifications" OnClick="ResetFilters"></MudIconButton>
             </MudToolBar>
         </MudPaper>
 
-        @foreach (var taskItem in Tasks.GetTasks())
+        @foreach (var taskItem in GetFilteredTasks())
         {
             <MudPaper Elevation="3" Class="d-flex">
-                <MudCheckBox @bind-Checked="@taskItem.IsCompleted" Color="@GetColorEnum(taskItem.Priority)" Size="Size.Large" Dense="true"/>
+                <MudCheckBox @bind-Checked="@taskItem.IsCompleted" @onclick="async () => await CompleteTask(taskItem)" Color="@GetColorEnum(taskItem.Priority)" Size="Size.Large" Dense="true" />
                 <MudText Class="align-self-center ml-3">@taskItem.Title</MudText>
                 <MudText Class="align-self-center ml-auto mr-3">@DaysLeft(taskItem.Deadline)</MudText>
-                <MudAvatar Class="mr-3 align-self-center" Color="@GetColorEnum(taskItem.Priority)" Size="Size.Small"/>
+                <MudIconButton @onclick="async () =>await  DeleteTask(taskItem.Id)" Icon="@Icons.Material.Filled.Delete" Color="@GetColorEnum(taskItem.Priority)" Size="Size.Small" />
             </MudPaper>
         }
     </MudStack>

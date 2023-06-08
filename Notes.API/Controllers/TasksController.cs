@@ -28,7 +28,7 @@ public class TasksController : ControllerBase
 
         if(task is null)
         {
-            return BadRequest($"Note not found");
+            return BadRequest($"Task not found");
         }
 
         return Ok(task);
@@ -56,20 +56,20 @@ public class TasksController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<ActionResult> EditTask([FromBody] AddEditTaskDto taskToEdit)
+    public async Task<ActionResult> EditTask([FromBody] TaskDto taskToEdit)
     {
         var result = await _mediator.Send(new EditTaskCommand(taskToEdit));
 
         if (result is null)
         {
-            return NotFound($"Employee not found");
+            return NotFound($"Task not found");
         }
 
         return Ok(result);
     }
 
     [HttpPatch]
-    public async Task<ActionResult> UpdateTask([FromBody] AddEditTaskDto taskToEdit)
+    public async Task<ActionResult> UpdateTask([FromBody] TaskDto taskToEdit)
     {
         var result = await _mediator.Send(new EditTaskCommand(taskToEdit));
 
@@ -81,7 +81,7 @@ public class TasksController : ControllerBase
         return Ok(result);
     }
 
-    [HttpDelete("{Id}")]
+    [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteTask([FromRoute] int id)
     {
         var command = new DeleteTaskCommand { Id = id };
@@ -89,7 +89,7 @@ public class TasksController : ControllerBase
 
         if (result is null)
         {
-            return NotFound($"Employee not found");
+            return NotFound("Task not found");
         }
 
         return Ok(result);
