@@ -1,16 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
-using MudBlazor;
-using Notes.Blazor.Observer;
 using Notes.Blazor.Services.Implementations;
 using Notes.Blazor.Services.Interfaces;
 using Notes.DataTransferObjects.Events;
-using Notes.DataTransferObjects.Notes;
-using System;
-using System.Diagnostics.Tracing;
 
 namespace Notes.Blazor.Pages.EventPages
 {
-    //Concrete Observer
     public partial class EventsPage
     {
         [Inject]

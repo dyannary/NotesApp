@@ -22,9 +22,6 @@ namespace Notes.Blazor.Pages.EventPages
         [Inject]
         public DateStateService dateStateService { get; set; }
 
-        [Inject]
-        public IDialogService DialogService { get; set; }
-
         public string EventName { get; set; } = "Name";
         
         public DateTime? EndDate { get; set; }
@@ -57,7 +54,7 @@ namespace Notes.Blazor.Pages.EventPages
         }
 
         public void Cancel()
-        { 
+        {
             NavigationManager.NavigateTo($"events");
         }
     }

@@ -14,16 +14,6 @@ public class TaskAdapter : ITypeConverter<AddEditTaskDto, Domain.Task>, ITypeCon
         destination.Deadline = source.Deadline;
         destination.CreatedDate = source.CreatedDate;
         destination.IsCompleted = source.IsCompleted;
-        //var task = new Domain.Task
-        //{
-        //    Id = source.Id,
-        //    Title = source.Title,
-        //    Content = source.Content,
-        //    Priority = source.Priority,
-        //    Deadline = source.Deadline,
-        //    CreatedDate = source.CreatedDate,
-        //    IsCompleted = source.IsCompleted
-        //};
 
         return destination;
     }

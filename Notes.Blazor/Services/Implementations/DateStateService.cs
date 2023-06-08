@@ -1,8 +1,5 @@
-﻿using Notes.Blazor.Observer;
+﻿namespace Notes.Blazor.Services.Implementations;
 
-namespace Notes.Blazor.Services.Implementations;
-
-//Subject
 public class DateStateService
 {
     private DateTime _selectedDate = DateTime.Today;
