@@ -8,7 +8,7 @@ namespace Notes.Blazor.Pages.EventPages
     public partial class EventsPage
     {
         [Inject]
-        public IEventService EventService { get; set; }
+        public IEventRepository EventService { get; set; }
 
         public IEnumerable<EventDto>? Events;
         [Inject]

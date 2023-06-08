@@ -12,7 +12,7 @@ namespace Notes.Blazor.Pages.TaskPages;
 public partial class TasksPage
 {
     [Inject]
-    public ITaskService TaskService { get; set; }
+    public ITaskRepository TaskRepository { get; set; }
     [Inject]
     public NavigationManager NavigationManager { get; set; }
     [Inject]
@@ -46,7 +46,7 @@ public partial class TasksPage
     {
         try
         {
-            Tasks = await TaskService.GetTasksAsync();
+            Tasks = await TaskRepository.GetTasksAsync();
 
             DecoratedTasks = new TaskList();
             DecoratedTasks.InsertNewList(Tasks.GetTasks());
@@ -81,7 +81,7 @@ public partial class TasksPage
 
         try
         {
-            await TaskService.AddTaskAsync(NewTaskDto);
+            await TaskRepository.AddTaskAsync(NewTaskDto);
             Tasks.Add(NewTaskDto);
 
             await GetTasks();
@@ -179,7 +179,7 @@ public partial class TasksPage
         {
             task.IsCompleted = !task.IsCompleted;
 
-            await TaskService.UpdateTaskAsync(task);
+            await TaskRepository.UpdateTaskAsync(task);
 
             await GetTasks();
         }
@@ -194,7 +194,7 @@ public partial class TasksPage
 
     private async Task DeleteTask(int id)
     {
-        await TaskService.DeleteTaskAsync(id);
+        await TaskRepository.DeleteTaskAsync(id);
         await GetTasks();
     }
 }   

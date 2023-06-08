@@ -5,11 +5,11 @@ using System.Net.Http.Json;
 
 namespace Notes.Blazor.Services.Implementations;
 
-public class NoteTagService: INoteTagService
+public class NoteTagRepository: INoteTagRepository
 {
     private readonly HttpClient _http;
 
-    public NoteTagService(HttpClient http)
+    public NoteTagRepository(HttpClient http)
     {
         _http = http;
     }

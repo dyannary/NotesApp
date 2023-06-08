@@ -13,7 +13,7 @@ namespace Notes.Blazor.Pages.NotePages;
 public partial class AddNotePage
 {
     [Inject]
-    public INoteService NoteService { get; set; }
+    public INoteRepository NoteRepository { get; set; }
     [Inject]
     public NavigationManager NavigationManager { get; set; }
     [Inject]
@@ -71,7 +71,7 @@ public partial class AddNotePage
 
             var noteToAdd = _noteBuilder.Build();
 
-            int id = await NoteService.AddNoteAsync(noteToAdd);
+            int id = await NoteRepository.AddNoteAsync(noteToAdd);
 
             if (id == 0)
                 throw new Exception();

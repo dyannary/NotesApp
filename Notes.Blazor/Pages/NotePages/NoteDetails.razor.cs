@@ -10,10 +10,10 @@ public partial class NoteDetails
     [Parameter]
     public int Id { get; set; }
     [Inject]
-    public INoteService NoteService { get; set; }
+    public INoteRepository NoteRepository { get; set; }
 
     [Inject]
-    public INoteTagService NoteTagService { get; set; }
+    public INoteTagRepository NoteTagRepository { get; set; }
 
     [Inject]
     public NavigationManager NavigationManager { get; set; }
@@ -32,7 +32,7 @@ public partial class NoteDetails
     {
         try
         {
-            Note = await NoteService.GetNoteByIdAsync(Id);
+            Note = await NoteRepository.GetNoteByIdAsync(Id);
             await GetNoteTags();
         }
         catch (Exception e)
@@ -43,7 +43,7 @@ public partial class NoteDetails
 
     public async Task GetNoteTags()
     {
-        var res = await NoteTagService.GetNoteTagsAsync(Note.Id);
+        var res = await NoteTagRepository.GetNoteTagsAsync(Note.Id);
 
         if (res.Any())
         {
@@ -59,7 +59,7 @@ public partial class NoteDetails
             Title = Note.Title
         };
 
-        await NoteService.UpdateNoteAsync(noteToEdit);
+        await NoteRepository.UpdateNoteAsync(noteToEdit);
     }
 
     public async Task ChangeNoteContent()
@@ -70,7 +70,7 @@ public partial class NoteDetails
             Content = Note.Content
         };
 
-        await NoteService.UpdateNoteAsync(noteToEdit);
+        await NoteRepository.UpdateNoteAsync(noteToEdit);
     }
 
     private void GoToNotePage()
@@ -94,7 +94,7 @@ public partial class NoteDetails
 
         NoteTags.Add(noteTag);
 
-        await NoteTagService.AddNoteTagAsync(noteTag);
+        await NoteTagRepository.AddNoteTagAsync(noteTag);
 
         NewTagName = string.Empty;
         StartAddTag = false;
@@ -102,7 +102,7 @@ public partial class NoteDetails
 
     public async Task DeleteTag(NoteTagDto tagToDelete)
     {
-        await NoteTagService.DeleteNoteTagAsync(tagToDelete.Id);
+        await NoteTagRepository.DeleteNoteTagAsync(tagToDelete.Id);
 
         NoteTags.Remove(tagToDelete);
 

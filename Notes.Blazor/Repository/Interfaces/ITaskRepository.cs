@@ -3,7 +3,7 @@ using Notes.DataTransferObjects.Tasks;
 
 namespace Notes.Blazor.Services.Interfaces;
 
-public interface ITaskService
+public interface ITaskRepository
 {   
     Task<TaskList> GetTasksAsync();
     Task<TaskDto> GetTaskByIdAsync(int id);

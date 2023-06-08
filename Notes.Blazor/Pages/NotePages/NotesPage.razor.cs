@@ -10,9 +10,9 @@ namespace Notes.Blazor.Pages.NotePages;
 public partial class NotesPage
 {
     [Inject]
-    public INoteService NoteService { get; set; }
+    public INoteRepository NoteRepository { get; set; }
     [Inject]
-    public INoteTagService NoteTagService { get; set; }
+    public INoteTagRepository NoteTagRepository { get; set; }
 
     [Inject]
     public NavigationManager NavigationManager { get; set; }
@@ -32,7 +32,7 @@ public partial class NotesPage
     {
         try
         {
-            Notes = (List<NoteDto>?) await NoteService.GetNotesAsync();
+            Notes = (List<NoteDto>?) await NoteRepository.GetNotesAsync();
 
             foreach (var note in Notes)
             {
@@ -47,7 +47,7 @@ public partial class NotesPage
 
     public async Task GetNoteTags(NoteDto note)
     {
-        var res = await NoteTagService.GetNoteTagsAsync(note.Id);
+        var res = await NoteTagRepository.GetNoteTagsAsync(note.Id);
 
         if (res.Any())
         {
@@ -69,7 +69,7 @@ public partial class NotesPage
     {
         try
         {
-            await NoteService.DeleteNoteAsync(note.Id);
+            await NoteRepository.DeleteNoteAsync(note.Id);
             Snackbar.Add("Deleted");
 
             Notes.Remove(note);

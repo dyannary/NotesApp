@@ -2,7 +2,7 @@
 
 namespace Notes.Blazor.Services.Interfaces;
 
-public interface INoteService
+public interface INoteRepository
 {
     Task<IEnumerable<NoteDto>> GetNotesAsync();
     Task<NoteDto> GetNoteByIdAsync(int id);
