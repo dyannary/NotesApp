@@ -64,8 +64,10 @@ else
                             <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Default" @onclick="async () => { EventDetails(myEvent.Id);}" />
                         </CardHeaderActions>
                     </MudCardHeader>
-                    <MudCardContent>
-                        <MudText>@myEvent.Description</MudText>
+                    <MudCardContent Class="overflow-hidden">
+                        <MudText Class="overflow-hidden" Style="max-height: 50px;">
+                            @myEvent.Description
+                        </MudText>
                     </MudCardContent>
                 </MudCard>
             </MudPaper>

@@ -43,7 +43,7 @@ else
                   Color="Color.Primary">
             @StartDateNullable
         </MudField>
-        <MudField 
+        <MudField
                   Label="End date"
                   Class="start flex-1 mr-5"
                   Elevation="0"
@@ -51,9 +51,11 @@ else
             @EndDateNullable
         </MudField>
     </div>
-    <MudField T="string"
-              Lines="10"
-              Variant="Variant.Outlined"> @Event.Description
+    <MudField style="overflow-wrap: break-word;"
+        T="string"
+        Lines="10"
+        Variant="Variant.Outlined">
+        @Event.Description
     </MudField>
 }
 
