@@ -4,7 +4,7 @@ In the context of this project, we had the opportunity to employ various design 
 
 Each pattern addresses a specific problem and provides an efficient, industry-tested solution. Concerning design patterns, we utilized a diverse range of patterns in the development of our application. 
 
-For instancewe used: 
+For instance we used: 
 - Factory Method for flexible object creation
 - Builder for step-by-step construction of complex objects
 - Prototype for cloning and creating new objects
