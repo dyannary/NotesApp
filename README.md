@@ -1,20 +1,29 @@
-**ABOUT THIS PROJECT**
+# NotesApp
+- ASP.NET and Blazor web app developed for university with idee to use design patterns
+- The goal of this project was the understanding and practical application of software design patterns
+- Second goal of this project was to simulate the work and delivery of code as in a real development team
 
-In the context of this project, we had the opportunity to employ various design patterns, with seven of them being part of the Gang of Four (GoF). 
+# About app
+NotesApp is a web app that allows
+  - to create notes and customize them with tags 
+  - add task based on priorities with or without deadline
+  - schedule events on a calendar
 
-Each pattern addresses a specific problem and provides an efficient, industry-tested solution. Concerning design patterns, we utilized a diverse range of patterns in the development of our application. 
+# Implemented design patterns
+- Factory Method
+- Builder
+- Prototype
+- Adapter
+- Decorator
+- Memento
 
-For instance we used: 
-- Factory Method for flexible object creation
-- Builder for step-by-step construction of complex objects
-- Prototype for cloning and creating new objects
-- Adapter for interface adaptation
-- Decorator for adding additional functionalities to existing objects
-- Memento for saving and restoring object states
-- State for managing states
-- Proxy for controlling access to objects.
+# Application interface
 
-Our project was implemented on the ASP.NET C# platform, along with the Blazor framework, providing a robust and high-performance environment for the development of our application.
+Notes page
+![image](https://github.com/1Leomas/NotesApp/assets/81852464/42b5ba6b-058c-43e1-b49d-d047dd107df2)
 
-Through this application, users have access to tools that allow them to create and customize notes, add tasks based on priorities, and plan events in a personalized calendar. 
-The application caters to the needs of students and those seeking more efficient organization in the field of studies.
+Tasks page
+![image](https://github.com/1Leomas/NotesApp/assets/81852464/05b9f9e9-3d1e-4dcb-8e33-81f67a5f3bb3)
+
+Create task page
+![image](https://github.com/1Leomas/Notes
